@@ -11,12 +11,12 @@
     <title>My AngularJS App</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://github.com/Pratheeswaran/Angular_seed/tree/master/app/bower_components/html5-boilerplate/dist/css/normalize.css">
-    <link rel="stylesheet" href="https://github.com/Pratheeswaran/Angular_seed/tree/master/app/bower_components/html5-boilerplate/dist/css/main.css">
-    <link rel="stylesheet" href="https://github.com/Pratheeswaran/Angular_seed/tree/master/app/app.css">
-    <link rel="stylesheet" href="https://github.com/Pratheeswaran/Angular_seed/tree/master/app/bower_components/angular-material/angular-material.css">
+    <link rel="stylesheet" href="app/bower_components/html5-boilerplate/dist/css/normalize.css">
+    <link rel="stylesheet" href="app/bower_components/html5-boilerplate/dist/css/main.css">
+    <link rel="stylesheet" href="app/app.css">
+    <link rel="stylesheet" href="app/bower_components/angular-material/angular-material.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-    <script src="https://github.com/Pratheeswaran/Angular_seed/tree/master/app/bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="app/bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <body ng-controller="AppCtrl">
     <md-toolbar class="md-hue-2">
@@ -46,17 +46,17 @@
     <!-- In production use:
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
     -->
-    <script src="https://github.com/Pratheeswaran/Angular_seed/tree/master/app/bower_components/angular/angular.js"></script>
-    <script src="https://github.com/Pratheeswaran/Angular_seed/tree/master/app/bower_components/angular-aria/angular-aria.js"></script>
-    <script src="https://github.com/Pratheeswaran/Angular_seed/tree/master/app/bower_components/angular-animate/angular-animate.js"></script>
-    <script src="https://github.com/Pratheeswaran/Angular_seed/tree/master/app/bower_components/angular-material/angular-material.js"></script>
-    <script src="https://github.com/Pratheeswaran/Angular_seed/tree/master/app/bower_components/angular-route/angular-route.js"></script>
-    <script src="https://github.com/Pratheeswaran/Angular_seed/tree/master/app/app.js"></script>
-    <script src="https://github.com/Pratheeswaran/Angular_seed/tree/master/app/view1/view1.js"></script>
-    <script src="https://github.com/Pratheeswaran/Angular_seed/tree/master/app/view2/view2.js"></script>
-    <script src="https://github.com/Pratheeswaran/Angular_seed/tree/master/app/components/version/version.js"></script>
-    <script src="https://github.com/Pratheeswaran/Angular_seed/tree/master/app/components/version/version-directive.js"></script>
-    <script src="https://github.com/Pratheeswaran/Angular_seed/tree/master/app/components/version/interpolate-filter.js"></script>
+    <script src="app/bower_components/angular/angular.js"></script>
+    <script src="app/bower_components/angular-aria/angular-aria.js"></script>
+    <script src="app/bower_components/angular-animate/angular-animate.js"></script>
+    <script src="app/bower_components/angular-material/angular-material.js"></script>
+    <script src="app/bower_components/angular-route/angular-route.js"></script>
+    <script src="app/app.js"></script>
+    <script src="app/view1/view1.js"></script>
+    <script src="app/view2/view2.js"></script>
+    <script src="app/components/version/version.js"></script>
+    <script src="app/components/version/version-directive.js"></script>
+    <script src="app/components/version/interpolate-filter.js"></script>
 </body>
 </html>
 
