@@ -22,28 +22,82 @@
 
     <script src="html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
-<body ng-controller="AppCtrl">
-    <md-toolbar class="md-hue-2">
-        <div class="md-toolbar-tools">
-            <md-button aria-label="Menu" class="md-icon-button">
-                <md-icon class="material-icons md-dark  md-18">
-                    menu
-                </md-icon>
-            </md-button>
-            <h2>
-                <span>Angular seed app: v<span app-version></span></span>
-            </h2>
-            <span flex></span>
-            <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
-                <md-nav-item class="md-primary" md-nav-href="#!/view1" name="view1">View 1</md-nav-item>
-                <md-nav-item class="md-primary" md-nav-href="#!/view2" name="view2">View 2</md-nav-item>
-            </md-nav-bar>
-        </div>
-    </md-toolbar>
+<body ng-controller="AppCtrl" ng-cloak md-theme="primary" md-theme-watch layout="column">
+    <md-content flex layout="row">
+        <md-sidenav md-is-locked-open="isPinned" class="md-sidenav-left"
+                    md-component-id="left"
+                    md-whiteframe="4" md-theme="altTheme" md-theme-watch ng-style="myStyle" layout="column">
+            <md-toolbar class="md-hue-2" layout="row">
+                <div class="md-toolbar-tools">
+                    <h1 ng-hide="isPinned">
+                        Sidenav Left
+                    </h1>
+                    <span flex ng-hide="isPinned"></span>
+                    <md-icon style="outline:none" class="material-icons  md-24" ng-click="lock()">
+                        sort
+                    </md-icon>
+                </div>
 
 
-    <div ng-view></div>
+            </md-toolbar>
+            <md-content flex layout-padding ng-controller="LeftCtrl">
+                <md-list flex>
+                    <md-list-item class="md-2-line" ng-click="Link('/view1')">
+                        <md-icon style="margin:15px">
+                            dashboard
+                        </md-icon>
+                        <p ng-hide="isPinned">Dashboard</p>
+                    </md-list-item>
+                    <md-list-item class="md-2-line" ng-click="Link('/view2')">
+                        <md-icon style="margin:15px" class="material-icons  md-24">
+                            my_location
+                        </md-icon><p ng-hide="isPinned">Map</p>
+                    </md-list-item>
+                </md-list>
+            </md-content>
+        </md-sidenav>
+        <md-content flex layout="column">
+            <md-toolbar style="background-color:white; color:rgba(0, 0, 0, 0.71)" md-whiteframe="14">
+                <div class="md-toolbar-tools">
+                    <md-button aria-label="Menu" ng-hide="isPinned" class="md-icon-button" ng-click="toggleLeft()">
+                        <md-icon class="material-icons  md-dark md-24">
+                            menu
+                        </md-icon>
+                    </md-button>
+                    <h2>
+                        <span>Angular seed app: v<span app-version></span></span>
+                    </h2>
+                    <span flex></span>
 
+                    <md-button aria-label="Menu" class="md-icon-button" ng-click="toggleRight()">
+                        <md-icon class="material-icons  md-dark md-24">
+                            chat
+                        </md-icon>
+                    </md-button>
+                </div>
+            </md-toolbar>
+            <md-content flex >
+                <md-sidenav class="md-sidenav-right md-whiteframe-14dp" md-component-id="right" layout="column">
+                    <md-content flex md-colors="{background: '{{accent}}-A200'}" layout="column" layout-wrap>
+                        <section flex>
+                            <md-subheader md-colors="{background: '{{accent}}-A200'}">Primary Colour change</md-subheader>
+                            <div>
+                                <md-button style="z-index: 0; border-radius:14%;width:30px;    height: 33px;" class="md-fab" aria-label="Eat cake" ng-repeat="color in colors" md-colors="{background: '{{color}}'}" md-colors-watch="false" ng-click="selectThemePrimary(color)">
+                                </md-button>
+                            </div>
+                            <md-subheader md-colors="{background: '{{accent}}-A200'}">Secondary Colour change</md-subheader>
+                            <md-button style="z-index: 0; border-radius:14%;width:30px;    height: 33px;" class="md-fab" aria-label="Eat cake" ng-repeat="color in colors" md-colors="{background: '{{color}}'}" md-colors-watch="false" ng-click="selectThemeAccent(color)">
+                            </md-button>
+                        </section>
+
+
+                    </md-content>
+                </md-sidenav>
+
+                <div ng-view></div>
+            </md-content>
+        </md-content>
+    </md-content>
     <!--[if lt IE 9]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -55,7 +109,6 @@
     <script src="/bower_components/angular-animate/angular-animate.js"></script>
     <script src="/bower_components/angular-material/angular-material.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>-->
-
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-animate.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-aria.min.js"></script>
@@ -71,5 +124,6 @@
     <script src="app/components/version/version.js"></script>
     <script src="app/components/version/version-directive.js"></script>
     <script src="app/components/version/interpolate-filter.js"></script>
+
 </body>
 </html>
