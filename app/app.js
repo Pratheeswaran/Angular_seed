@@ -5,7 +5,7 @@ angular.module('myApp', [
   'ngRoute',
   'myApp.view1',
   'myApp.view2',
-  'myApp.version', 'ngMaterial'
+  'myApp.version', 'ngMaterial', 'gridshore.c3js.chart'
 ])
     .config(['$locationProvider', '$routeProvider', '$mdThemingProvider', function ($locationProvider, $routeProvider, $mdThemingProvider) {
         $locationProvider.hashPrefix('!');
@@ -83,6 +83,23 @@ angular.module('myApp', [
          }
      };
  })
+    .directive('schrollBottom', function () {
+        return {
+            scope: {
+                schrollBottom: "="
+            },
+            link: function (scope, element) {
+                scope.$watchCollection('schrollBottom', function (newValue) {
+                    if (newValue) {
+                        angular.element(element[0]).scrollTop = angular.element(element[0]).scrollHeight;
+                        var elmnt = document.getElementById("chatBox");
+                        elmnt.scrollTop = element[0].scrollHeight;
+                        console.log(angular.element(element[0]))
+                    }
+                });
+            }
+        }
+    })
  .directive('themePreview', function () {
      return {
          restrict: 'E',
@@ -99,18 +116,35 @@ angular.module('myApp', [
      }
  });
 
-function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdColorPalette, $mdColors, $mdColorUtil) {
+function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdColorPalette, $mdColors, $mdColorUtil, $mdMedia, $filter) {
+    $scope.people = [{ Name: "Vinoth", Online: true, img: "app/assets/0.jpg" },
+        { Name: "Arun", Online: false, img: "app/assets/0.jpg", messages: [] },
+        { Name: "Sampath", Online: true, img: "app/assets/0.jpg", messages: [] },
+        { Name: "Mahesh", Online: false, img: "app/assets/0.jpg", messages: [] },
+        { Name: "Ranjth", Online: true, img: "app/assets/0.jpg", messages: [] },
+        { Name: "Mahesh", Online: true, img: "app/assets/0.jpg", messages: [] },
+        { Name: "Vivek", Online: false, img: "app/assets/0.jpg", messages: [] }];
     $scope.primary = 'purple';
     $scope.accent = 'green';
     $scope.colors = Object.keys($mdColorPalette);
     $scope.isPinned = false;
+    $scope.$watch(function () { return $mdMedia('xs'); }, function (bool) {
+        $scope.screen = bool;
+        if (bool)
+            $scope.isPinned = false;
+        else {
+            $scope.isPinned = false;
+            $scope.myStyle = { width: '100%' };
+        }
+    });
+    console.log()
     $scope.lock = function () {
         $timeout(function () {
             $mdSidenav('left').close()
             $scope.isPinned = !$scope.isPinned;
             $mdSidenav('left').open();
             if ($scope.isPinned)
-                $scope.myStyle = { width: '80px' };
+                $scope.myStyle = { width: '88px' };
             else
                 $scope.myStyle = { width: '100%' };
         }, 200);
@@ -120,10 +154,10 @@ function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdC
         return $mdColorUtil.rgbaToHex($mdColors.getThemeColor(color))
     };
     $scope.selectThemePrimary = function (color) {
-            $scope.primary = color;
+        $scope.primary = color;
     };
     $scope.selectThemeAccent = function (color) {
-            $scope.accent = color;
+        $scope.accent = color;
     };
     $mdTheming.generateTheme('altTheme');
     $mdTheming.generateTheme('primary');
@@ -132,7 +166,26 @@ function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdC
         $scope.currentNavItem = route;
     else
         $scope.currentNavItem = 'view1';
-
+    $scope.goToPerson = function (person, ev) {
+        $scope.toggleRight2();
+        person.messages = [{ msg: "Hai", Time: "12.30 PM", From: "me" },
+            { msg: "Hai", Time: "12.44 PM", From: "him" },
+            { msg: "How are you?", Time: "1.01 PM", From: "me" },
+            { msg: "Pretty good", Time: "1.04 PM", From: "him" },
+            { msg: "How about you?", Time: "1.11 PM", From: "him" },
+            { msg: "Ya Fine", Time: "1.14 PM", From: "me" },
+            { msg: "How is your work going?", Time: "1.15 PM", From: "me" },
+            { msg: "Good.", Time: "1.19 PM", From: "him" }]
+        $scope.Chat_Person = person;
+    };
+    $scope.Back_To_Chat = function () {
+        $scope.toggleRight2();
+    }
+    $scope.Send_message = function (mesg) {
+       
+        $scope.Chat_Person.messages.push({ msg: mesg, Time: $filter('date')(new Date(), 'hh.mm a'), From: "me" });
+    }
+    $scope.toggleRight2 = buildDelayedToggler('right2');
     $scope.toggleLeft = buildDelayedToggler('left');
     $scope.toggleRight = buildToggler('right');
     $scope.isOpenRight = function () {

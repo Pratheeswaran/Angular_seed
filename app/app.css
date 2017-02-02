@@ -1,24 +1,183 @@
 /* app css stylesheet */
 md-nav-bar .md-nav-bar {
-  color:white;
+    color: white;
 }
-.Nav_Panel{
-    background-color:#484c4e !important;
+
+.Nav_Panel {
+    background-color: #484c4e !important;
 }
 /* Rules for sizing the icon. */
-.material-icons.md-18 { font-size: 18px; }
-.material-icons.md-24 { font-size: 24px; }
-.material-icons.md-36 { font-size: 36px; }
-.material-icons.md-48 { font-size: 48px; }
+.material-icons.md-18 {
+    font-size: 18px;
+}
+
+.material-icons.md-24 {
+    font-size: 24px;
+}
+
+.material-icons.md-20 {
+    font-size: 20px;
+}
+
+.material-icons.md-36 {
+    font-size: 36px;
+}
+
+.material-icons.md-48 {
+    font-size: 48px;
+}
 
 /* Rules for using icons as black on a light background. */
-.material-icons.md-dark { color: rgba(0, 0, 0, 0.71) !important;}
-.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+.material-icons.md-dark {
+    color: rgba(0, 0, 0, 0.71) !important;
+}
+
+    .material-icons.md-dark.md-inactive {
+        color: rgba(0, 0, 0, 0.26);
+    }
 
 /* Rules for using icons as white on a dark background. */
-.material-icons.md-light { color: rgba(255, 255, 255, 1);  }
-.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+.material-icons.md-light {
+    color: rgba(255, 255, 255, 1);
+}
 
-md-sidenav{
-   max-width:290px !important;
+    .material-icons.md-light.md-inactive {
+        color: rgba(255, 255, 255, 0.3);
+    }
+
+md-sidenav {
+    max-width: 260px !important;
+}
+
+#Online_circle {
+    width: 10px;
+    height: 10px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 25px;
+    position: absolute;
+    margin: 10px;
+    bottom: 0px;
+    left: 36px;
+    z-index: 9999;
+}
+
+#White_circle {
+    width: 14px;
+    height: 14px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 25px;
+    position: absolute;
+    background: white;
+    margin: 8px;
+    bottom: 0px;
+    left: 35.3px;
+    z-index: 0;
+}
+
+.active {
+    background: rgba(76, 175, 80, 0.88);
+}
+
+.inactive {
+    background: #F44336;
+}
+
+#Chat md-tab-item {
+    font-size: 12px;
+    padding: 12px;
+}
+
+
+.chat_content_message {
+    position: relative;
+    margin-left: 6px;
+    padding: 0px 15px;
+    background-color: #e2e2e2;
+    float: left;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.chat-conversation-user {
+    margin-bottom: 20px;
+    float: left;
+    width: 100%;
+}
+
+    .chat-conversation-user.me .chat_content_message {
+        position: relative;
+        margin-left: 0;
+        margin-right: 6px;
+        background-color: #4cc3d9;
+        float: right;
+    }
+
+.messages_box_content {
+    padding: 15px;
+    font-size: 14px;
+}
+
+.chat-conversation-user.him .chat_content_message::before {
+    border-top: 15px solid #e2e2e2;
+    border-left: 15px solid transparent;
+    left: 0;
+    margin-left: -14px;
+}
+
+.chat_content_message::before {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.chat-conversation-user.me .chat_content_message::before {
+    right: 0;
+    margin-right: -14px;
+    border-top: 15px solid #4cc3d9;
+    border-right: 15px solid transparent;
+}
+
+
+
+.message_box {
+    width: 100%;
+    outline: none;
+    border: none;
+}
+
+
+
+.send_box_content {
+    position: fixed;
+    bottom: 0px;
+    background-color: white;
+    width: 100%;
+    left: 0px;
+    height: 39px;
+    border-top: 1.4px solid rgba(93, 93, 93, 0.76);
+}
+
+
+
+
+.send_box_content input{
+    padding-left:10px;
+}
+
+.send_inactive {
+    color: rgba(0, 0, 0, 0.26) !important;
+}
+
+.send_active {
+    color: #4cc3d9 !important;
+}
+
+md-icon{
+    outline:none;
 }

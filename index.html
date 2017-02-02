@@ -20,11 +20,14 @@
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
+    <link href="app/assets/css/c3.min.css" rel="stylesheet" type="text/css" />
+
+
     <script src="html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <body ng-controller="AppCtrl" ng-cloak md-theme="primary" md-theme-watch layout="column">
     <md-content flex layout="row">
-        <md-sidenav md-is-locked-open="isPinned" class="md-sidenav-left"
+        <md-sidenav md-is-locked-open="$mdMedia('gt-xs')" class="md-sidenav-left"
                     md-component-id="left"
                     md-whiteframe="4" md-theme="altTheme" md-theme-watch ng-style="myStyle" layout="column">
             <md-toolbar class="md-hue-2" layout="row">
@@ -33,7 +36,8 @@
                         Sidenav Left
                     </h1>
                     <span flex ng-hide="isPinned"></span>
-                    <md-icon style="outline:none" class="material-icons  md-24" ng-click="lock()">
+
+                    <md-icon hide-xs style="outline:none" class="material-icons  md-24" ng-click="lock()">
                         sort
                     </md-icon>
                 </div>
@@ -43,13 +47,13 @@
             <md-content flex layout-padding ng-controller="LeftCtrl">
                 <md-list flex>
                     <md-list-item class="md-2-line" ng-click="Link('/view1')">
-                        <md-icon style="margin:15px">
+                        <md-icon style="margin:12px" class="material-icons  md-24">
                             dashboard
                         </md-icon>
                         <p ng-hide="isPinned">Dashboard</p>
                     </md-list-item>
                     <md-list-item class="md-2-line" ng-click="Link('/view2')">
-                        <md-icon style="margin:15px" class="material-icons  md-24">
+                        <md-icon style="margin:12px" class="material-icons  md-24">
                             my_location
                         </md-icon><p ng-hide="isPinned">Map</p>
                     </md-list-item>
@@ -57,9 +61,9 @@
             </md-content>
         </md-sidenav>
         <md-content flex layout="column">
-            <md-toolbar style="background-color:white; color:rgba(0, 0, 0, 0.71)" md-whiteframe="14">
+            <md-toolbar style="background-color:white; color:rgba(0, 0, 0, 0.71)" md-whiteframe="7">
                 <div class="md-toolbar-tools">
-                    <md-button aria-label="Menu" ng-hide="isPinned" class="md-icon-button" ng-click="toggleLeft()">
+                    <md-button aria-label="Menu" hide-gt-xs class="md-icon-button" ng-click="toggleLeft()">
                         <md-icon class="material-icons  md-dark md-24">
                             menu
                         </md-icon>
@@ -76,10 +80,48 @@
                     </md-button>
                 </div>
             </md-toolbar>
-            <md-content flex >
+            <md-content flex>
+                <div ng-view></div>
                 <md-sidenav class="md-sidenav-right md-whiteframe-14dp" md-component-id="right" layout="column">
-                    <md-content flex md-colors="{background: '{{accent}}-A200'}" layout="column" layout-wrap>
-                        <section flex>
+                    <md-content flex layout="column" layout-wrap>
+                        <md-sidenav class="md-sidenav-right md-whiteframe-14dp" md-component-id="right2" layout="column">
+                            <md-toolbar style="background-color:white; color:rgba(0, 0, 0, 0.71)">
+                                <div class="md-toolbar-tools">
+                                    <md-button aria-label="Menu" class="md-icon-button" ng-click="Back_To_Chat()">
+                                        <md-icon class="material-icons md-dark md-24">
+                                            keyboard_arrow_left
+                                        </md-icon>
+                                    </md-button>
+                                    <h2 layout-align="center center">
+                                        {{Chat_Person.Name}}
+                                    </h2>
+                                </div>
+                            </md-toolbar>
+                            <md-content flex layout="column" layout-wrap>
+                                <div class="messages_box_content" id="chatBox" schroll-bottom="Chat_Person.messages">
+                                    <div ng-repeat="message in Chat_Person.messages" class="chat-conversation-user " ng-class=" {'him':message.From=='him', 'me':message.From=='me' }">
+                                        <div class="chat_content_message">
+                                            <p>
+                                                {{message.msg}}
+                                                <br /><small> {{message.Time}}</small>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="send_box_content" layout="row">
+                                        <md-icon class="material-icons md-dark md-24">
+                                            photo_camera
+                                        </md-icon>
+                                        <input ng-model="my_message" type="text" class="message_box" />
+                                        <md-icon ng-class="{'send_active' : my_message , 'send_inactive' : !my_message}" class="material-icons  md-24" ng-click="Send_message(my_message)">
+                                            send
+                                        </md-icon>
+                                    </div>
+                                </div>
+
+
+                            </md-content>
+                        </md-sidenav>
+                        <!--<section flex>
                             <md-subheader md-colors="{background: '{{accent}}-A200'}">Primary Colour change</md-subheader>
                             <div>
                                 <md-button style="z-index: 0; border-radius:14%;width:30px;    height: 33px;" class="md-fab" aria-label="Eat cake" ng-repeat="color in colors" md-colors="{background: '{{color}}'}" md-colors-watch="false" ng-click="selectThemePrimary(color)">
@@ -88,13 +130,30 @@
                             <md-subheader md-colors="{background: '{{accent}}-A200'}">Secondary Colour change</md-subheader>
                             <md-button style="z-index: 0; border-radius:14%;width:30px;    height: 33px;" class="md-fab" aria-label="Eat cake" ng-repeat="color in colors" md-colors="{background: '{{color}}'}" md-colors-watch="false" ng-click="selectThemeAccent(color)">
                             </md-button>
-                        </section>
-
-
+                        </section>-->
+                        <md-tabs id="Chat" flex md-dynamic-height md-border-bottom>
+                            <md-tab label="Chat">
+                                <md-content class="md-padding">
+                                    <md-list-item ng-repeat="person in people" ng-click="goToPerson(person, $event)" class="noright">
+                                        <div id="Online_circle" ng-class="{'active' : person.Online , 'inactive' : !person.Online}"></div>
+                                        <div id="White_circle"></div>
+                                        <img alt="{{ person.Name }}" ng-src="{{ person.img }}" class="md-avatar" />
+                                        <p>{{ person.Name }}</p>
+                                    </md-list-item>
+                                </md-content>
+                            </md-tab>
+                            <md-tab label="Favourites">
+                                <md-content class="md-padding">
+                                </md-content>
+                            </md-tab>
+                            <md-tab label="Activities">
+                                <md-content class="md-padding">
+                                </md-content>
+                            </md-tab>
+                        </md-tabs>
                     </md-content>
                 </md-sidenav>
 
-                <div ng-view></div>
             </md-content>
         </md-content>
     </md-content>
@@ -118,12 +177,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.js"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.css">
 
+    <script src="app/assets/js/d3.min.js" charset="utf-8"></script>
+    <script src="app/assets/js/c3.min.js"></script>
     <script src="app/app.js"></script>
     <script src="app/view1/view1.js"></script>
     <script src="app/view2/view2.js"></script>
     <script src="app/components/version/version.js"></script>
     <script src="app/components/version/version-directive.js"></script>
     <script src="app/components/version/interpolate-filter.js"></script>
+
+    <script src="app/assets/js/c3-angular.min.js"></script>
 
 </body>
 </html>
