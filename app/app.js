@@ -88,13 +88,13 @@ angular.module('myApp', [
             scope: {
                 schrollBottom: "="
             },
-            link: function (scope, element) {
+            link: function (scope, element, $location, $anchorScroll) {
                 scope.$watchCollection('schrollBottom', function (newValue) {
                     if (newValue) {
-                        angular.element(element[0]).scrollTop = angular.element(element[0]).scrollHeight;
-                        var elmnt = document.getElementById("chatBox");
-                        elmnt.scrollTop = element[0].scrollHeight;
-                        console.log(angular.element(element[0]))
+                       element[0].scrollTop = 100;// angular.element(element[0]).scrollHeight;
+                       console.log(element[0].scrollTop)
+                       var myDiv = document.getElementById('chatBox');
+                       myDiv.scrollTop = 1000;
                     }
                 });
             }
