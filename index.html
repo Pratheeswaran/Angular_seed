@@ -100,23 +100,23 @@
                                     <md-icon class="material-icons  md-dark md-24">
                                         people
                                     </md-icon>
-                                    
+
                                 </md-tab-label>
                                 <md-tab-body class="md-padding">
-                                        <md-subheader class="md-no-sticky">Online</md-subheader>
-                                        <md-list-item ng-repeat="person in people" ng-if="person.Online" ng-click="goToPerson(person, $event)" class="noright">
-                                            <div id="Online_circle" ng-class="{'active' : person.Online , 'inactive' : !person.Online}"></div>
-                                            <div id="White_circle"></div>
-                                            <img alt="{{ person.Name }}" ng-src="{{ person.img }}" class="md-avatar" />
-                                            <p>{{ person.Name }}</p>
-                                        </md-list-item>
-                                        <md-subheader class="md-no-sticky">Offline</md-subheader>
-                                        <md-list-item ng-repeat="person in people" ng-if="!person.Online" ng-click="goToPerson(person, $event)" class="noright">
-                                            <div id="Online_circle" ng-class="{'active' : person.Online , 'inactive' : !person.Online}"></div>
-                                            <div id="White_circle"></div>
-                                            <img alt="{{ person.Name }}" ng-src="{{ person.img }}" class="md-avatar" />
-                                            <p>{{ person.Name }}</p>
-                                        </md-list-item>
+                                    <md-subheader class="md-no-sticky">Online</md-subheader>
+                                    <md-list-item ng-repeat="person in people" ng-if="person.Online" ng-click="goToPerson(person, $event)" class="noright">
+                                        <div id="Online_circle" ng-class="{'active' : person.Online , 'inactive' : !person.Online}"></div>
+                                        <div id="White_circle"></div>
+                                        <img alt="{{ person.Name }}" ng-src="{{ person.img }}" class="md-avatar" />
+                                        <p>{{ person.Name }}</p>
+                                    </md-list-item>
+                                    <md-subheader class="md-no-sticky">Offline</md-subheader>
+                                    <md-list-item ng-repeat="person in people" ng-if="!person.Online" ng-click="goToPerson(person, $event)" class="noright">
+                                        <div id="Online_circle" ng-class="{'active' : person.Online , 'inactive' : !person.Online}"></div>
+                                        <div id="White_circle"></div>
+                                        <img alt="{{ person.Name }}" ng-src="{{ person.img }}" class="md-avatar" />
+                                        <p>{{ person.Name }}</p>
+                                    </md-list-item>
                                 </md-tab-body>
                             </md-tab>
                             <md-tab>
@@ -129,9 +129,11 @@
                                 </md-content>
                             </md-tab>
                             <md-tab>
-                                <md-tab-label><md-icon class="material-icons  md-dark md-24">
-                                                  view_list
-</md-icon></md-tab-label>
+                                <md-tab-label>
+                                    <md-icon class="material-icons  md-dark md-24">
+                                        view_list
+                                    </md-icon>
+                                </md-tab-label>
                                 <md-content class="md-padding">
                                 </md-content>
                             </md-tab>
@@ -159,6 +161,8 @@
                     <md-content flex layout="column" layout-wrap>
                         <div class="messages_box_content" id="chatBox" scroll-to-bottom="Chat_Person.messages">
                             <div ng-repeat="message in Chat_Person.messages" class="chat-conversation-user " ng-class=" {'him':message.From=='him', 'me':message.From=='me' }">
+                                <div style="padding-bottom: 12px;font-size: 80%;" ng-bind="formatDate(message.Date)">
+                                </div>
                                 <div class="chat_content_message">
                                     <p>
                                         {{message.msg}}

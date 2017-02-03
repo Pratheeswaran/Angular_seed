@@ -194,6 +194,16 @@ md-sidenav {
     border-top: 15px solid #03A9F4;
     border-right: 15px solid transparent;
 }
+.chat-conversation-user{
+    text-align:center;
+}
+.me> div > p {
+   text-align:right;
+}
+.him> div > p 
+{
+       text-align:left;
+}
 
 .him > div > p > small {
     float: left;

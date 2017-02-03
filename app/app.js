@@ -126,16 +126,42 @@ function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdC
         { Name: "Mahesh", Online: true, img: "app/assets/0.jpg", messages: [] },
         { Name: "Vivek", Online: false, img: "app/assets/0.jpg", messages: [] }];
     angular.forEach($scope.people, function (item) {
-        var messages = [{ msg: "Hai", Time: "12.30 PM", From: "me" },
-          { msg: "Hai", Time: "12.44 PM", From: "him" },
-          { msg: "How are you?", Time: "1.01 PM", From: "me" },
-          { msg: "Pretty good", Time: "1.04 PM", From: "him" },
-          { msg: "How about you?", Time: "1.11 PM", From: "him" },
-          { msg: "Ya Fine", Time: "1.14 PM", From: "me" },
-          { msg: "How is your work going?", Time: "1.15 PM", From: "me" },
-          { msg: "Good.", Time: "1.19 PM", From: "him" }]
+
+        var messages = [{ msg: "Hai", Time: "12.30 PM", From: "me", Date: new Date("2017-01-27") },
+          { msg: "Hai", Time: "12.44 PM", From: "him", Date: new Date("2017-01-31") },
+          { msg: "How are you?", Time: "1.01 PM", From: "me", Date: new Date("2017-02-01") },
+          { msg: "Pretty good", Time: "1.04 PM", From: "him", Date: new Date("2017-02-01") },
+          { msg: "How about you?", Time: "1.11 PM", From: "him", Date: new Date("2017-02-02") },
+          { msg: "Ya Fine", Time: "1.14 PM", From: "me", Date: new Date("2017-02-02") },
+          { msg: "How is your work going?", Time: "1.15 PM", From: "me", Date: new Date("2017-02-03") },
+          { msg: "Good.", Time: "1.19 PM", From: "him", Date: new Date("2017-02-03") }]
         item.messages = messages;
     });
+    $scope.formatDate = function (date) {
+        $scope.today = new Date();
+        var diff = $filter('date')($scope.today - date, 'dd');
+        console.log(diff)
+        if (diff == 1) {
+            $scope.PrevDate = "Today"
+        }
+        else if (diff == 2) {
+            $scope.PrevDate = "Yesterday"
+        }
+        else if (diff >2&&diff <5) {
+            $scope.PrevDate = $filter('date')(date, 'EEEE');
+        }
+        else {
+            $scope.PrevDate = $filter('date')(date, 'fullDate');
+        }
+        if ($scope.retDate != $scope.PrevDate) {
+            $scope.retDate = $scope.PrevDate;
+            return $scope.PrevDate;
+        }
+        else
+        {
+            return null;
+        }
+    };
     $scope.primary = 'purple';
     $scope.accent = 'green';
     $scope.colors = Object.keys($mdColorPalette);
@@ -182,7 +208,7 @@ function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdC
         $scope.toggleRight2();
         //element[0].scrollTop = element[0].scrollHeight + 10;
         var elmnt = document.getElementById("chatBox");
-        elmnt.scrollTop =500;
+        elmnt.scrollTop = 500;
         console.log(elmnt.scrollTop)
         $scope.Chat_Person = person;
     };
