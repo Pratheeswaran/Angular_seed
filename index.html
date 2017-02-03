@@ -82,45 +82,8 @@
             </md-toolbar>
             <md-content flex>
                 <div ng-view></div>
-                <md-sidenav class="md-sidenav-right md-whiteframe-14dp" md-component-id="right" layout="column">
+                <md-sidenav md-disable-backdrop class="md-sidenav-right md-whiteframe-14dp" md-component-id="right" layout="column">
                     <md-content flex layout="column" layout-wrap>
-                        <md-sidenav class="md-sidenav-right md-whiteframe-14dp" md-component-id="right2" layout="column">
-                            <md-toolbar style="background-color:white; color:rgba(0, 0, 0, 0.71)">
-                                <div class="md-toolbar-tools">
-                                    <md-button aria-label="Menu" class="md-icon-button" ng-click="Back_To_Chat()">
-                                        <md-icon class="material-icons md-dark md-24">
-                                            keyboard_arrow_left
-                                        </md-icon>
-                                    </md-button>
-                                    <h2 layout-align="center center">
-                                        {{Chat_Person.Name}}
-                                    </h2>
-                                </div>
-                            </md-toolbar>
-                            <md-content flex layout="column" layout-wrap>
-                                <div class="messages_box_content" id="chatBox" schroll-bottom="Chat_Person.messages">
-                                    <div ng-repeat="message in Chat_Person.messages" class="chat-conversation-user " ng-class=" {'him':message.From=='him', 'me':message.From=='me' }">
-                                        <div class="chat_content_message">
-                                            <p>
-                                                {{message.msg}}
-                                                <br /><small> {{message.Time}}</small>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="send_box_content" layout="row">
-                                        <md-icon class="material-icons md-dark md-24">
-                                            photo_camera
-                                        </md-icon>
-                                        <input ng-model="my_message" type="text" class="message_box" />
-                                        <md-icon ng-class="{'send_active' : my_message , 'send_inactive' : !my_message}" class="material-icons  md-24" ng-click="Send_message(my_message)">
-                                            send
-                                        </md-icon>
-                                    </div>
-                                </div>
-
-
-                            </md-content>
-                        </md-sidenav>
                         <!--<section flex>
                             <md-subheader md-colors="{background: '{{accent}}-A200'}">Primary Colour change</md-subheader>
                             <div>
@@ -131,26 +94,92 @@
                             <md-button style="z-index: 0; border-radius:14%;width:30px;    height: 33px;" class="md-fab" aria-label="Eat cake" ng-repeat="color in colors" md-colors="{background: '{{color}}'}" md-colors-watch="false" ng-click="selectThemeAccent(color)">
                             </md-button>
                         </section>-->
-                        <md-tabs id="Chat" flex md-dynamic-height md-border-bottom>
-                            <md-tab label="Chat">
+                        <md-tabs id="Chat" flex md-border-bottom>
+                            <md-tab>
+                                <md-tab-label>
+                                    <md-icon class="material-icons  md-dark md-24">
+                                        people
+                                    </md-icon>
+                                    
+                                </md-tab-label>
+                                <md-tab-body class="md-padding">
+                                        <md-subheader class="md-no-sticky">Online</md-subheader>
+                                        <md-list-item ng-repeat="person in people" ng-if="person.Online" ng-click="goToPerson(person, $event)" class="noright">
+                                            <div id="Online_circle" ng-class="{'active' : person.Online , 'inactive' : !person.Online}"></div>
+                                            <div id="White_circle"></div>
+                                            <img alt="{{ person.Name }}" ng-src="{{ person.img }}" class="md-avatar" />
+                                            <p>{{ person.Name }}</p>
+                                        </md-list-item>
+                                        <md-subheader class="md-no-sticky">Offline</md-subheader>
+                                        <md-list-item ng-repeat="person in people" ng-if="!person.Online" ng-click="goToPerson(person, $event)" class="noright">
+                                            <div id="Online_circle" ng-class="{'active' : person.Online , 'inactive' : !person.Online}"></div>
+                                            <div id="White_circle"></div>
+                                            <img alt="{{ person.Name }}" ng-src="{{ person.img }}" class="md-avatar" />
+                                            <p>{{ person.Name }}</p>
+                                        </md-list-item>
+                                </md-tab-body>
+                            </md-tab>
+                            <md-tab>
+                                <md-tab-label>
+                                    <md-icon class="material-icons  md-dark md-24">
+                                        favorite
+                                    </md-icon>
+                                </md-tab-label>
                                 <md-content class="md-padding">
-                                    <md-list-item ng-repeat="person in people" ng-click="goToPerson(person, $event)" class="noright">
-                                        <div id="Online_circle" ng-class="{'active' : person.Online , 'inactive' : !person.Online}"></div>
-                                        <div id="White_circle"></div>
-                                        <img alt="{{ person.Name }}" ng-src="{{ person.img }}" class="md-avatar" />
-                                        <p>{{ person.Name }}</p>
-                                    </md-list-item>
                                 </md-content>
                             </md-tab>
-                            <md-tab label="Favourites">
-                                <md-content class="md-padding">
-                                </md-content>
-                            </md-tab>
-                            <md-tab label="Activities">
+                            <md-tab>
+                                <md-tab-label><md-icon class="material-icons  md-dark md-24">
+                                                  view_list
+</md-icon></md-tab-label>
                                 <md-content class="md-padding">
                                 </md-content>
                             </md-tab>
                         </md-tabs>
+                    </md-content>
+                </md-sidenav>
+                <md-sidenav class="md-sidenav-right md-whiteframe-14dp" md-component-id="right2" layout="column">
+                    <md-toolbar style="background-color:white; color:rgba(0, 0, 0, 0.71)">
+                        <div class="md-toolbar-tools" layout="row" layout-align="start center">
+
+                            <md-button aria-label="Menu" class="md-icon-button" ng-click="Back_To_Chat()">
+                                <md-icon class="material-icons md-dark md-24">
+                                    keyboard_arrow_left
+                                </md-icon>
+                            </md-button>
+                            <h2 layout-align="center center">
+                                {{Chat_Person.Name}}
+                            </h2>
+                            <span flex></span>
+                            <div id="Online_circle_toolbar" ng-class="{'active' : Chat_Person.Online , 'inactive' : !Chat_Person.Online}"></div>
+                            <small ng-if="Chat_Person.Online">Online</small>
+                            <small ng-if="!Chat_Person.Online">Offline</small>
+                        </div>
+                    </md-toolbar>
+                    <md-content flex layout="column" layout-wrap>
+                        <div class="messages_box_content" id="chatBox" scroll-to-bottom="Chat_Person.messages">
+                            <div ng-repeat="message in Chat_Person.messages" class="chat-conversation-user " ng-class=" {'him':message.From=='him', 'me':message.From=='me' }">
+                                <div class="chat_content_message">
+                                    <p>
+                                        {{message.msg}}
+                                        <br /><small> {{message.Time}}</small>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="send_box_content" id="msgbox" layout="row">
+                                <ng-form name="msgsend" layout="row">
+                                    <md-icon class="material-icons md-dark md-24">
+                                        photo_camera
+                                    </md-icon>
+                                    <input ng-model="my_message" type="text" class="message_box" ng-keyup="$event.keyCode == 13 && Send_message(my_message) " />
+                                    <md-icon ng-class="{'send_active' : my_message , 'send_inactive' : !my_message}" class="material-icons  md-24" ng-click="Send_message(my_message)">
+                                        send
+                                    </md-icon>
+                                </ng-form>
+                            </div>
+                        </div>
+
+
                     </md-content>
                 </md-sidenav>
 

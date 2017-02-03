@@ -83,23 +83,7 @@ angular.module('myApp', [
          }
      };
  })
-    .directive('schrollBottom', function () {
-        return {
-            scope: {
-                schrollBottom: "="
-            },
-            link: function (scope, element, $location, $anchorScroll) {
-                scope.$watchCollection('schrollBottom', function (newValue) {
-                    if (newValue) {
-                       element[0].scrollTop = 100;// angular.element(element[0]).scrollHeight;
-                       console.log(element[0].scrollTop)
-                       var myDiv = document.getElementById('chatBox');
-                       myDiv.scrollTop = 1000;
-                    }
-                });
-            }
-        }
-    })
+
  .directive('themePreview', function () {
      return {
          restrict: 'E',
@@ -114,9 +98,26 @@ angular.module('myApp', [
              };
          }
      }
- });
+ })
+   .directive('scrollToBottom', function ($timeout, $window) {
+       return {
+           scope: {
+               scrollToBottom: "="
+           },
+           restrict: 'A',
+           link: function (scope, element, attr) {
+               scope.$watchCollection('scrollToBottom', function (newVal) {
+                   if (newVal) {
+                       $timeout(function () {
+                           element[0].scrollTop = element[0].scrollHeight + 10;
+                       }, 0);
+                   }
+               });
+           }
+       };
+   });
 
-function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdColorPalette, $mdColors, $mdColorUtil, $mdMedia, $filter) {
+function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdColorPalette, $mdColors, $mdColorUtil, $mdMedia, $filter, $anchorScroll) {
     $scope.people = [{ Name: "Vinoth", Online: true, img: "app/assets/0.jpg" },
         { Name: "Arun", Online: false, img: "app/assets/0.jpg", messages: [] },
         { Name: "Sampath", Online: true, img: "app/assets/0.jpg", messages: [] },
@@ -124,6 +125,17 @@ function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdC
         { Name: "Ranjth", Online: true, img: "app/assets/0.jpg", messages: [] },
         { Name: "Mahesh", Online: true, img: "app/assets/0.jpg", messages: [] },
         { Name: "Vivek", Online: false, img: "app/assets/0.jpg", messages: [] }];
+    angular.forEach($scope.people, function (item) {
+        var messages = [{ msg: "Hai", Time: "12.30 PM", From: "me" },
+          { msg: "Hai", Time: "12.44 PM", From: "him" },
+          { msg: "How are you?", Time: "1.01 PM", From: "me" },
+          { msg: "Pretty good", Time: "1.04 PM", From: "him" },
+          { msg: "How about you?", Time: "1.11 PM", From: "him" },
+          { msg: "Ya Fine", Time: "1.14 PM", From: "me" },
+          { msg: "How is your work going?", Time: "1.15 PM", From: "me" },
+          { msg: "Good.", Time: "1.19 PM", From: "him" }]
+        item.messages = messages;
+    });
     $scope.primary = 'purple';
     $scope.accent = 'green';
     $scope.colors = Object.keys($mdColorPalette);
@@ -168,22 +180,20 @@ function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdC
         $scope.currentNavItem = 'view1';
     $scope.goToPerson = function (person, ev) {
         $scope.toggleRight2();
-        person.messages = [{ msg: "Hai", Time: "12.30 PM", From: "me" },
-            { msg: "Hai", Time: "12.44 PM", From: "him" },
-            { msg: "How are you?", Time: "1.01 PM", From: "me" },
-            { msg: "Pretty good", Time: "1.04 PM", From: "him" },
-            { msg: "How about you?", Time: "1.11 PM", From: "him" },
-            { msg: "Ya Fine", Time: "1.14 PM", From: "me" },
-            { msg: "How is your work going?", Time: "1.15 PM", From: "me" },
-            { msg: "Good.", Time: "1.19 PM", From: "him" }]
+        //element[0].scrollTop = element[0].scrollHeight + 10;
+        var elmnt = document.getElementById("chatBox");
+        elmnt.scrollTop =500;
+        console.log(elmnt.scrollTop)
         $scope.Chat_Person = person;
     };
     $scope.Back_To_Chat = function () {
         $scope.toggleRight2();
     }
     $scope.Send_message = function (mesg) {
-       
-        $scope.Chat_Person.messages.push({ msg: mesg, Time: $filter('date')(new Date(), 'hh.mm a'), From: "me" });
+        if (mesg) {
+            $scope.my_message = null;
+            $scope.Chat_Person.messages.push({ msg: mesg, Time: $filter('date')(new Date(), 'hh.mm a'), From: "me" });
+        }
     }
     $scope.toggleRight2 = buildDelayedToggler('right2');
     $scope.toggleLeft = buildDelayedToggler('left');

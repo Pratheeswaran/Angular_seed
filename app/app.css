@@ -1,4 +1,30 @@
 /* app css stylesheet */
+
+::-moz-scrollbar {
+    width: 12px;
+}
+
+::-moz-scrollbar-track {
+    -moz-box-shadow: 6px #fff;
+    background: #000;
+}
+
+::-moz-scrollbar-thumb {
+    border-radius: 10px;
+    -moz-box-shadow: inset 0 0 6px #fff;
+    background: rgba(66, 66, 66, 0.78);
+}
+
+* ::-webkit-scrollbar, ::-webkit-scrollbar:vertical {
+    width: 6px !important;
+    background: none !important;
+}
+
+::-webkit-scrollbar-thumb:vertical, ::-webkit-scrollbar-thumb:horizontal {
+    background: rgba(66, 66, 66, 0.78) !important;
+    border-radius: 0px !important;
+}
+
 md-nav-bar .md-nav-bar {
     color: white;
 }
@@ -45,8 +71,27 @@ md-nav-bar .md-nav-bar {
         color: rgba(255, 255, 255, 0.3);
     }
 
+@media (max-width: 456px) {
+    md-sidenav, md-sidenav-right {
+        width: 260px !important;
+    }
+
+    #right2 {
+        width: 304px !important;
+    }
+}
+
 md-sidenav {
     max-width: 260px !important;
+}
+
+#Online_circle_toolbar {
+    width: 10px;
+    height: 10px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 25px;
+    margin: 0px 7px;
 }
 
 #Online_circle {
@@ -84,17 +129,17 @@ md-sidenav {
     background: #F44336;
 }
 
-#Chat md-tab-item {
-    font-size: 12px;
-    padding: 12px;
-}
 
+#chatBox {
+    height: 100%;
+    overflow-y: auto;
+}
 
 .chat_content_message {
     position: relative;
     margin-left: 6px;
     padding: 0px 15px;
-    background-color: #e2e2e2;
+    background-color: #9E9E9E;
     float: left;
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
@@ -105,15 +150,22 @@ md-sidenav {
     margin-bottom: 20px;
     float: left;
     width: 100%;
+    animation-name: slideFromBottom;
+    animation-duration: 1s;
 }
 
-    .chat-conversation-user.me .chat_content_message {
-        position: relative;
-        margin-left: 0;
-        margin-right: 6px;
-        background-color: #4cc3d9;
-        float: right;
-    }
+#chatBox > div:nth-last-child(2) {
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.chat-conversation-user.me .chat_content_message {
+    position: relative;
+    margin-left: 0;
+    margin-right: 6px;
+    background-color: #03A9F4;
+    float: right;
+}
 
 .messages_box_content {
     padding: 15px;
@@ -121,7 +173,7 @@ md-sidenav {
 }
 
 .chat-conversation-user.him .chat_content_message::before {
-    border-top: 15px solid #e2e2e2;
+    border-top: 15px solid #9E9E9E;
     border-left: 15px solid transparent;
     left: 0;
     margin-left: -14px;
@@ -139,11 +191,19 @@ md-sidenav {
 .chat-conversation-user.me .chat_content_message::before {
     right: 0;
     margin-right: -14px;
-    border-top: 15px solid #4cc3d9;
+    border-top: 15px solid #03A9F4;
     border-right: 15px solid transparent;
 }
 
+.him > div > p > small {
+    float: left;
+    padding: 5px 2px;
+}
 
+.me > div > p > small {
+    float: right;
+    padding: 5px 2px;
+}
 
 .message_box {
     width: 100%;
@@ -154,6 +214,9 @@ md-sidenav {
 
 
 .send_box_content {
+    padding: 12px 4px;
+    transform: translateZ(0);
+    perspective: 1000;
     position: fixed;
     bottom: 0px;
     background-color: white;
@@ -166,9 +229,9 @@ md-sidenav {
 
 
 
-.send_box_content input{
-    padding-left:10px;
-}
+    .send_box_content input {
+        padding-left: 10px;
+    }
 
 .send_inactive {
     color: rgba(0, 0, 0, 0.26) !important;
@@ -178,6 +241,76 @@ md-sidenav {
     color: #4cc3d9 !important;
 }
 
-md-icon{
-    outline:none;
+md-icon {
+    outline: none;
+}
+
+
+
+@keyframes slideFromLeft {
+    0% {
+        margin-left: -200px;
+        opacity: 0;
+    }
+
+    100% {
+        margin-left: 0;
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes slideFromLeft {
+    0% {
+        margin-left: -200px;
+        opacity: 0;
+    }
+
+    100% {
+        margin-left: 0;
+        opacity: 1;
+    }
+}
+
+@keyframes slideFromRight {
+    0% {
+        margin-right: -200px;
+        opacity: 0;
+    }
+
+    100% {
+        margin-right: 0;
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes slideFromRight {
+    0% {
+        margin-right: -200px;
+        opacity: 0;
+    }
+
+    100% {
+        margin-right: 0;
+        opacity: 1;
+    }
+}
+
+@keyframes slideFromBottom {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes slideFromBottom {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
