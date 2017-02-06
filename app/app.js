@@ -120,10 +120,36 @@ angular.module('myApp', [
                });
            }
        };
-   });
+   })
+.directive("outsideClick", ['$document', function ($document) {
+    return {
+        link: function ($scope, $element, $attributes) {
+            var scopeExpression = $attributes.outsideClick,
+                onDocumentClick = function (event) {
+                        //console.log(event.target.parentNode.parentNode.parentNode.parentNode.id)
+                    if (((event.target.id != 'Notification' && $scope.Show_Notification) && (event.target.parentNode.parentNode.parentNode.parentNode.id != 'Notification')) || event.target.id == 'Notification_icon') {
+                        $scope.$apply(scopeExpression);
+                    };
+                }
+            $document.on("click", onDocumentClick);
+            $element.on('$destroy', function () {
+                $document.off("click", onDocumentClick);
+            });
+        }
+    }
+}]);
 
 function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdColorPalette, $mdColors, $mdColorUtil, $mdMedia, $filter, $anchorScroll) {
     $scope.Show_Notification = false;
+    $scope.Show_Notification_Click = function () {
+        $scope.Show_Notification = !$scope.Show_Notification;
+    }
+    $scope.Notification_Click = function () {
+    }
+    $scope.Notifications = [{ Name:"Message form HR" ,Action:"Message",Seen:true},
+        { Name: "Git commit", Action: "Task", Seen: false },
+        { Name: "Message form TeamLead ", Action: "Message", Seen: true },
+        { Name: "Finish the Messaging Module", Action: "Task", Seen: false }];
     $scope.user = { Name: "popeye", Online: true, img: "app/assets/popeye1.png" };
     $scope.people = [{ Name: "Vinoth", Online: true, img: "app/assets/0.jpg" },
         { Name: "Arun", Online: false, img: "app/assets/0.jpg", messages: [] },
@@ -144,10 +170,7 @@ function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdC
           { msg: "Good.", Time: "1.19 PM", From: "him", Date: new Date("2017-02-03") }]
         item.messages = messages;
     });
-    $scope.Show_Notification_Click=function()
-    {
-        $scope.Show_Notification = !$scope.Show_Notification;
-    }
+
     $scope.formatDate = function (date) {
         console.log(date)
         $scope.today = new Date();

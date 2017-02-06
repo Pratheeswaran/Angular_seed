@@ -82,6 +82,7 @@ md-nav-bar .md-nav-bar {
 #Notification_icon
 {
     margin:0px 10px;
+    cursor:pointer;
 }
 #Notification
 {

@@ -73,24 +73,17 @@
                     </h2>
                     <span flex></span>
                     <div>
-                        <md-icon id="Notification_icon" ng-click="Show_Notification_Click()" class="material-icons  md-dark md-24">
+                        <md-icon id="Notification_icon" class="material-icons  md-dark md-24">
                             <svg style="position:absolute;" width="10" height="10">
                                 <circle cx="5" cy="5" r="5" fill="#ff2828" />
                             </svg>
                             notifications
                         </md-icon>
-                        <div id="Notification" md-whiteframe="15" ng-show="Show_Notification">
+                        <div id="Notification" md-whiteframe="15" outside-click="Show_Notification_Click()" ng-show="Show_Notification">
                             <md-list flex>
                                 <md-subheader class="md-no-sticky">3 line item (with hover)</md-subheader>
-                                <md-list-item ng-click="null">
-                                    hai
-                                </md-list-item>
-                                <md-list-item ng-click="null">
-                                    hai
-                                </md-list-item><md-list-item ng-click="null">
-                                    hai
-                                </md-list-item><md-list-item ng-click="null">
-                                    hai
+                                <md-list-item ng-repeat="Notification in Notifications | filter : Notification.Seen" ng-click="Notification_Click()">
+                                    {{Notification.Name}}
                                 </md-list-item>
                             </md-list>
                         </div>
