@@ -71,6 +71,29 @@ md-nav-bar .md-nav-bar {
         color: rgba(255, 255, 255, 0.3);
     }
 
+.md-user-avatar {
+    border-radius: 50%;
+    height:35px;
+    width: 35px;
+}
+.User_Button{
+    margin:0px 10px;
+}
+#Notification_icon
+{
+    margin:0px 10px;
+}
+#Notification
+{
+    position:absolute;
+    background-color:white;
+}
+#Notification::before
+{
+
+}
+
+
 @media (max-width: 456px) {
     md-sidenav, md-sidenav-right {
         width: 260px !important;
@@ -95,8 +118,8 @@ md-sidenav {
 }
 
 #Online_circle {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
     -webkit-border-radius: 25px;
     -moz-border-radius: 25px;
     border-radius: 25px;
@@ -108,16 +131,16 @@ md-sidenav {
 }
 
 #White_circle {
-    width: 14px;
-    height: 14px;
+    width: 12px;
+    height: 12px;
     -webkit-border-radius: 25px;
     -moz-border-radius: 25px;
     border-radius: 25px;
     position: absolute;
     background: white;
-    margin: 8px;
-    bottom: 0px;
-    left: 35.3px;
+    margin: 10px;
+    bottom: -2px;
+    left: 34px;
     z-index: 0;
 }
 
@@ -194,21 +217,23 @@ md-sidenav {
     border-top: 15px solid #03A9F4;
     border-right: 15px solid transparent;
 }
-.chat-conversation-user{
-    text-align:center;
-}
-.me> div > p {
-   text-align:right;
-}
-.him> div > p 
-{
-       text-align:left;
+
+.chat-conversation-user {
+    text-align: center;
 }
 
-.him > div > p > small {
-    float: left;
-    padding: 5px 2px;
+.me > div > p {
+    text-align: right;
 }
+
+.him > div > p {
+    text-align: left;
+}
+
+    .him > div > p > small {
+        float: left;
+        padding: 5px 2px;
+    }
 
 .me > div > p > small {
     float: right;

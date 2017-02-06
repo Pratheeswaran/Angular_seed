@@ -72,7 +72,33 @@
                         <span>Angular seed app: v<span app-version></span></span>
                     </h2>
                     <span flex></span>
-
+                    <div>
+                        <md-icon id="Notification_icon" ng-click="Show_Notification_Click()" class="material-icons  md-dark md-24">
+                            <svg style="position:absolute;" width="10" height="10">
+                                <circle cx="5" cy="5" r="5" fill="#ff2828" />
+                            </svg>
+                            notifications
+                        </md-icon>
+                        <div id="Notification" md-whiteframe="15" ng-show="Show_Notification">
+                            <md-list flex>
+                                <md-subheader class="md-no-sticky">3 line item (with hover)</md-subheader>
+                                <md-list-item ng-click="null">
+                                    hai
+                                </md-list-item>
+                                <md-list-item ng-click="null">
+                                    hai
+                                </md-list-item><md-list-item ng-click="null">
+                                    hai
+                                </md-list-item><md-list-item ng-click="null">
+                                    hai
+                                </md-list-item>
+                            </md-list>
+                        </div>
+                    </div>
+                    <div class="User_Button">
+                        <label>{{user.Name|titleCase }}</label>
+                        <img md-whiteframe="10" class="md-user-avatar" ng-src="{{user.img}}" alt="{{user.Name}}" />
+                    </div>
                     <md-button aria-label="Menu" class="md-icon-button" ng-click="toggleRight()">
                         <md-icon class="material-icons  md-dark md-24">
                             chat
@@ -80,6 +106,7 @@
                     </md-button>
                 </div>
             </md-toolbar>
+
             <md-content flex>
                 <div ng-view></div>
                 <md-sidenav md-disable-backdrop class="md-sidenav-right md-whiteframe-14dp" md-component-id="right" layout="column">

@@ -49,7 +49,12 @@ angular.module('myApp', [
 
         $routeProvider.otherwise({ redirectTo: '/view1' });
     }])
-    .controller('AppCtrl', AppCtrl)
+    .controller('AppCtrl', AppCtrl).filter('titleCase', function () {
+        return function (input) {
+            input = input || '';
+            return input.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+        };
+    })
 .controller('LeftCtrl', function ($scope, $timeout, $mdSidenav, $log) {
     $scope.close = function () {
         // Component lookup should always be available since we are not using `ng-if`
@@ -118,6 +123,8 @@ angular.module('myApp', [
    });
 
 function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdColorPalette, $mdColors, $mdColorUtil, $mdMedia, $filter, $anchorScroll) {
+    $scope.Show_Notification = false;
+    $scope.user = { Name: "popeye", Online: true, img: "app/assets/popeye1.png" };
     $scope.people = [{ Name: "Vinoth", Online: true, img: "app/assets/0.jpg" },
         { Name: "Arun", Online: false, img: "app/assets/0.jpg", messages: [] },
         { Name: "Sampath", Online: true, img: "app/assets/0.jpg", messages: [] },
@@ -137,7 +144,12 @@ function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdC
           { msg: "Good.", Time: "1.19 PM", From: "him", Date: new Date("2017-02-03") }]
         item.messages = messages;
     });
+    $scope.Show_Notification_Click=function()
+    {
+        $scope.Show_Notification = !$scope.Show_Notification;
+    }
     $scope.formatDate = function (date) {
+        console.log(date)
         $scope.today = new Date();
         var diff = $filter('date')($scope.today - date, 'dd');
         console.log(diff)
@@ -147,7 +159,7 @@ function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdC
         else if (diff == 2) {
             $scope.PrevDate = "Yesterday"
         }
-        else if (diff >2&&diff <5) {
+        else if (diff > 2 && diff < 5) {
             $scope.PrevDate = $filter('date')(date, 'EEEE');
         }
         else {
@@ -157,8 +169,7 @@ function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdC
             $scope.retDate = $scope.PrevDate;
             return $scope.PrevDate;
         }
-        else
-        {
+        else {
             return null;
         }
     };
@@ -218,7 +229,7 @@ function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdC
     $scope.Send_message = function (mesg) {
         if (mesg) {
             $scope.my_message = null;
-            $scope.Chat_Person.messages.push({ msg: mesg, Time: $filter('date')(new Date(), 'hh.mm a'), From: "me" });
+            $scope.Chat_Person.messages.push({ msg: mesg, Time: $filter('date')(new Date(), 'hh.mm a'), From: "me", Date: new Date() });
         }
     }
     $scope.toggleRight2 = buildDelayedToggler('right2');
