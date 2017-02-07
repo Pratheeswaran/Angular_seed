@@ -81,9 +81,15 @@
                         </md-icon>
                         <div id="Notification" md-whiteframe="15" outside-click="Show_Notification_Click()" ng-show="Show_Notification">
                             <md-list flex>
-                                <md-subheader class="md-no-sticky">3 line item (with hover)</md-subheader>
-                                <md-list-item ng-repeat="Notification in Notifications | filter : Notification.Seen" ng-click="Notification_Click()">
-                                    {{Notification.Name}}
+                                <md-subheader ng-if="(Notifications | filter : {Seen:'false'}).length!=0" class="md-no-sticky">{{ (Notifications | filter : {Seen:'false'}).length}} Unread</md-subheader>
+                                <md-subheader ng-if="(Notifications | filter : {Seen:'false'}).length==0" class="md-no-sticky">Caught up with everything!</md-subheader>
+                                <md-list-item class="md-1-line" ng-repeat="Notification in Notifications | filter : {Seen:'false'}" ng-click="Notification_Click( Notifications.indexOf(Notification))">
+                                    <div class="md-list-item-text" layout="row" layout-align="center center">
+                                        <md-icon style="margin:0px 10px" class="material-icons md-dark  md-24">
+                                            {{Notification.Icon}}
+                                        </md-icon>
+                                        <p style="font-size:80%;margin:0px;line-height: 1.6;text-wrap:avoid">{{Notification.Name}}</p>
+                                    </div>
                                 </md-list-item>
                             </md-list>
                         </div>

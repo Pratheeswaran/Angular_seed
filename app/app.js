@@ -126,7 +126,7 @@ angular.module('myApp', [
         link: function ($scope, $element, $attributes) {
             var scopeExpression = $attributes.outsideClick,
                 onDocumentClick = function (event) {
-                        //console.log(event.target.parentNode.parentNode.parentNode.parentNode.id)
+                        console.log(event)
                     if (((event.target.id != 'Notification' && $scope.Show_Notification) && (event.target.parentNode.parentNode.parentNode.parentNode.id != 'Notification')) || event.target.id == 'Notification_icon') {
                         $scope.$apply(scopeExpression);
                     };
@@ -144,12 +144,15 @@ function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdC
     $scope.Show_Notification_Click = function () {
         $scope.Show_Notification = !$scope.Show_Notification;
     }
-    $scope.Notification_Click = function () {
+    $scope.Notification_Click = function (val) {
+        console.log(val)
+        $timeout(function () { $scope.Notifications[val].Seen = true; }, 200)
+        
     }
-    $scope.Notifications = [{ Name:"Message form HR" ,Action:"Message",Seen:true},
-        { Name: "Git commit", Action: "Task", Seen: false },
-        { Name: "Message form TeamLead ", Action: "Message", Seen: true },
-        { Name: "Finish the Messaging Module", Action: "Task", Seen: false }];
+    $scope.Notifications = [{ Name: "Message form HR", Action: "Message", Seen: false, Icon: "textsms" },
+        { Name: "Git commit", Action: "Task", Seen: false, Icon: "linear_scale" },
+        { Name: "Message form TeamLead ", Action: "Message", Seen: false, Icon: "textsms" },
+        { Name: "Finish the Messaging Module", Action: "Task", Seen: false, Icon: "code" }];
     $scope.user = { Name: "popeye", Online: true, img: "app/assets/popeye1.png" };
     $scope.people = [{ Name: "Vinoth", Online: true, img: "app/assets/0.jpg" },
         { Name: "Arun", Online: false, img: "app/assets/0.jpg", messages: [] },
