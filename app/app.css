@@ -79,13 +79,19 @@ md-nav-bar .md-nav-bar {
 .User_Button{
     margin:0px 10px;
 }
-#Notification_icon
+#Notification_icon,#User_Profile_icon
 {
     margin:0px 10px;
     cursor:pointer;
 }
 #Notification
 {
+    z-index:61;
+    position:absolute;
+    background-color:white;
+}
+#User_Profile{
+    z-index:9999;
     position:absolute;
     background-color:white;
 }

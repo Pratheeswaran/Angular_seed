@@ -121,33 +121,74 @@ angular.module('myApp', [
            }
        };
    })
-.directive("outsideClick", ['$document', function ($document) {
+.directive("outsideClick", ['$document', '$parse', '$timeout', function ($document, $parse, $timeout) {
     return {
+        restrict: 'A',
         link: function ($scope, $element, $attributes) {
-            var scopeExpression = $attributes.outsideClick,
-                onDocumentClick = function (event) {
-                        console.log(event)
-                    if (((event.target.id != 'Notification' && $scope.Show_Notification) && (event.target.parentNode.parentNode.parentNode.parentNode.id != 'Notification')) || event.target.id == 'Notification_icon') {
-                        $scope.$apply(scopeExpression);
-                    };
-                }
+            var onDocumentClick = function (event) {
+                var offsetLeft = getOffsetLeft($element);
+                var offsetTop = getOffsetTop($element);
+                if (((event.target.id != $element[0].id && $parse($attributes.ngShow)($scope))) || event.target.id == $element[0].id + '_icon') {
+                    //if (!((event.clientY > $element["0"].offsetTop && event.clientY < parseInt($element["0"].offsetTop + $element["0"].clientHeight)) || (event.clientX > parseInt($element["0"].offsetLeft + $element["0"].clientWidth))) || event.target.id == $element[0].id + '_icon') {
+                    $timeout(function () {
+                        if (!(event.clientY > offsetTop && event.clientY < parseInt(offsetTop + $element["0"].clientHeight)) || !(event.clientX > offsetLeft && event.clientX < parseInt(offsetLeft + $element["0"].clientWidth)) || event.target.id == $element[0].id + '_icon') {
+                            $scope[$attributes.ngShow] = !$scope[$attributes.ngShow];
+                            $scope.$apply();
+                        }
+                    }, 10)
+                };
+            }
+            function getOffsetLeft(elem) {
+                elem = elem[0];
+                var offsetLeft = 0;
+                do {
+                    if (!isNaN(elem.offsetLeft)) {
+                        offsetLeft += elem.offsetLeft;
+                    }
+                } while (elem = elem.offsetParent);
+                return offsetLeft;
+            }
+            function getOffsetTop(elem) {
+                elem = elem[0];
+                var offsetTop = 0;
+                do {
+                    if (!isNaN(elem.offsetTop)) {
+                        offsetTop += elem.offsetTop;
+                    }
+                } while (elem = elem.offsetParent);
+                return offsetTop;
+            }
             $document.on("click", onDocumentClick);
+            if (_hasTouch()) {
+                $document.on('touchstart', eventHandler);
+            }
             $element.on('$destroy', function () {
+                if (_hasTouch()) {
+                    $document.off('touchstart', eventHandler);
+                }
                 $document.off("click", onDocumentClick);
+
             });
+            function _hasTouch() {
+                return 'ontouchstart' in window || navigator.maxTouchPoints;
+            };
         }
     }
 }]);
 
 function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdColorPalette, $mdColors, $mdColorUtil, $mdMedia, $filter, $anchorScroll) {
     $scope.Show_Notification = false;
+    $scope.Show_User_Profile = false;
     $scope.Show_Notification_Click = function () {
         $scope.Show_Notification = !$scope.Show_Notification;
+    }
+    $scope.Show_User_Profile_Click = function (ev) {
+        $scope.Show_User_Profile = !$scope.Show_User_Profile;
     }
     $scope.Notification_Click = function (val) {
         console.log(val)
         $timeout(function () { $scope.Notifications[val].Seen = true; }, 200)
-        
+
     }
     $scope.Notifications = [{ Name: "Message form HR", Action: "Message", Seen: false, Icon: "textsms" },
         { Name: "Git commit", Action: "Task", Seen: false, Icon: "linear_scale" },

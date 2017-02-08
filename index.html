@@ -25,7 +25,7 @@
 
     <script src="html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
-<body ng-controller="AppCtrl" ng-cloak md-theme="primary" md-theme-watch layout="column">
+<body id="body" ng-controller="AppCtrl" ng-cloak md-theme="primary" md-theme-watch layout="column">
     <md-content flex layout="row">
         <md-sidenav md-is-locked-open="$mdMedia('gt-xs')" class="md-sidenav-left"
                     md-component-id="left"
@@ -79,7 +79,7 @@
                             </svg>
                             notifications
                         </md-icon>
-                        <div id="Notification" md-whiteframe="15" outside-click="Show_Notification_Click()" ng-show="Show_Notification">
+                        <div id="Notification" md-whiteframe="15" outside-click ng-show="Show_Notification">
                             <md-list flex>
                                 <md-subheader ng-if="(Notifications | filter : {Seen:'false'}).length!=0" class="md-no-sticky">{{ (Notifications | filter : {Seen:'false'}).length}} Unread</md-subheader>
                                 <md-subheader ng-if="(Notifications | filter : {Seen:'false'}).length==0" class="md-no-sticky">Caught up with everything!</md-subheader>
@@ -95,8 +95,16 @@
                         </div>
                     </div>
                     <div class="User_Button">
-                        <label>{{user.Name|titleCase }}</label>
+                        <label id="User_Profile_icon" hide-xs>{{user.Name|titleCase }}</label>
                         <img md-whiteframe="10" class="md-user-avatar" ng-src="{{user.img}}" alt="{{user.Name}}" />
+                        <div id="User_Profile" outside-click md-whiteframe="15" ng-show="Show_User_Profile">
+                            <md-list flex>
+                                <md-list-item class="md-1-line" >
+                                    <p  style="font-size:80%;margin:0px;line-height: 1.6;text-wrap:avoid">  online</p>
+                                    <md-switch class="md-primary" ng-model="User.Online"></md-switch>
+                                </md-list-item>
+                            </md-list>
+                        </div>
                     </div>
                     <md-button aria-label="Menu" class="md-icon-button" ng-click="toggleRight()">
                         <md-icon class="material-icons  md-dark md-24">
