@@ -34,8 +34,8 @@ describe('my app', function() {
 
 
     it('should render view2 when user navigates to /view2', function() {
-      expect(element.all(by.css('[ng-view] p')).first().getText()).
-        toMatch(/partial for view 2/);
+        expect($('#view2').isPresent()).toBeTruthy();
+        console.log(element.all(by.css('[ng-view] md-content')).first())
     });
 
   });

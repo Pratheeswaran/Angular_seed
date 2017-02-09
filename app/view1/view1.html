@@ -1,125 +1,29 @@
-<md-content id="view1" layout="row" flex layout-wrap layout-padding layout-margin   >
+<md-content id="view1" layout="row" flex layout-wrap layout-padding layout-margin >
     <md-card flex="100">
         <md-card-title>
             <md-card-title-text>
-                <span class="md-headline">Action buttons</span>
+                <span class="md-headline">Contributions By Individuals In Project X</span>
             </md-card-title-text>
         </md-card-title>
         <md-card-content>
-            <c3chart bindto-id="donut-Contributions1-chart">
-                <chart-column column-id="Vinoth"
-                              column-values="70"
-                              column-type="donut" />
-                <chart-column column-id="Arun"
-                              column-values="35"
-                              column-type="donut" />
-                <chart-column column-id="Vivek"
-                              column-values="60"
-                              column-type="donut" />
-                <chart-donut title="Contributions in project" width="60" expand="true" />
-                <chart-events on-click-data="showClick(data)" />
-            </c3chart>
-
+            <div c3-simple id="Donut" config="Donut"></div>
         </md-card-content>
-        <md-card-actions layout="row" layout-align="end center">
-            <md-button class="md-raised md-primary">Action 1</md-button>
-            <md-button class="md-raised md-primary">Action 2</md-button>
-        </md-card-actions>
     </md-card>
-    <md-card flex="100">
-        <md-card-title>
-            <md-card-title-text>
-                <span class="md-headline">Action buttons</span>
-            </md-card-title-text>
-        </md-card-title>
-        <md-card-content>
-            <c3chart bindto-id="scatter-plot2-chart">
-                <chart-column column-id="Data 1 x"
-                              column-values="3.2, 3.2, 3.1, 2.3, 2.8, 2.8, 3.3, 2.4, 2.9, 2.7, 2.0, 3.0, 2.2, 2.9, 2.9, 3.1, 3.0, 2.7, 2.2, 2.5, 3.2, 2.8, 2.5, 2.8, 2.9, 3.0, 2.8, 3.0, 2.9, 2.6, 2.4, 2.4, 2.7, 2.7, 3.0, 3.4, 3.1, 2.3, 3.0, 2.5, 2.6, 3.0, 2.6, 2.3, 2.7, 3.0, 2.9, 2.9, 2.5, 2.8" />
-                <chart-column column-id="Data 2 x"
-                              column-values="3.3, 2.7, 3.0, 2.9, 3.0, 3.0, 2.5, 2.9, 2.5, 3.6, 3.2, 2.7, 3.0, 2.5, 2.8, 3.2, 3.0, 3.8, 2.6, 2.2, 3.2, 2.8, 2.8, 2.7, 3.3, 3.2, 2.8, 3.0, 2.8, 3.0, 2.8, 3.8, 2.8, 2.8, 2.6, 3.0, 3.4, 3.1, 3.0, 3.1, 3.1, 3.1, 2.7, 3.2, 3.3, 3.0, 2.5, 3.0, 3.4, 3.0" />
-                <chart-column column-id="Data 1"
-                              column-values="1.4, 1.5, 1.5, 1.3, 1.5, 1.3, 1.6, 1.0, 1.3, 1.4, 1.0, 1.5, 1.0, 1.4, 1.3, 1.4, 1.5, 1.0, 1.5, 1.1, 1.8, 1.3, 1.5, 1.2, 1.3, 1.4, 1.4, 1.7, 1.5, 1.0, 1.1, 1.0, 1.2, 1.6, 1.5, 1.6, 1.5, 1.3, 1.3, 1.3, 1.2, 1.4, 1.2, 1.0, 1.3, 1.2, 1.3, 1.3, 1.1, 1.3"
-                              column-type="scatter" />
-                <chart-column column-id="Data 2"
-                              column-values="2.5, 1.9, 2.1, 1.8, 2.2, 2.1, 1.7, 1.8, 1.8, 2.5, 2.0, 1.9, 2.1, 2.0, 2.4, 2.3, 1.8, 2.2, 2.3, 1.5, 2.3, 2.0, 2.0, 1.8, 2.1, 1.8, 1.8, 1.8, 2.1, 1.6, 1.9, 2.0, 2.2, 1.5, 1.4, 2.3, 2.4, 1.8, 1.8, 2.1, 2.4, 2.3, 1.9, 2.3, 2.5, 2.3, 1.9, 2.0, 2.3, 1.8"
-                              column-type="scatter" />
-                <chart-axes values-xs="Data 1:Data 1 x,Data 2:Data 2 x" />
-                <chart-axis>
-                    <chart-axis-x show="true"></chart-axis-x>
-                    <chart-axis-y show="true"></chart-axis-y>
-                </chart-axis>
-            </c3chart>
-
-        </md-card-content>
-        <md-card-actions layout="row" layout-align="end center">
-            <md-button class="md-raised md-primary ">Action 2</md-button>
-            <md-button class="md-raised md-primary">Action 1</md-button>
-        </md-card-actions>
-    </md-card>
+    
     <md-card flex="100">
         <md-card-header>
             <md-card-avatar>
-                <img class="md-user-avatar" src="app/assets/0.jpg" />
+                <img class="md-user-avatar" src="app/assets/arun.jpg" />
             </md-card-avatar>
             <md-card-header-text>
-                <span class="md-title">User</span>
-                <span class="md-subhead">subhead</span>
+                <span class="md-title">Arun</span>
+                <span class="md-subhead">Progress this week</span>
             </md-card-header-text>
         </md-card-header>
-        <md-card-title>
-            <md-card-title-text>
-                <span class="md-headline">Action buttons</span>
-            </md-card-title-text>
-        </md-card-title>
         <md-card-content>
-            <c3chart bindto-id="chart6">
-                <chart-column column-id="Data 1"
-                              column-values="30,200,100,400,150,250,50"
-                              column-type="line" />
-                <chart-axis>
-                    <chart-axis-x show="false"></chart-axis-x>
-                    <chart-axis-y show="false"></chart-axis-y>
-                </chart-axis>
-            </c3chart>
-
+            <div c3-simple id="chart" config="chart"></div>
         </md-card-content>
-        <md-card-actions layout="row" layout-align="end center">
-            <md-button class="md-raised md-primary ">Action 2</md-button>
-            <md-button class="md-raised md-primary">Action 1</md-button>
-        </md-card-actions>
     </md-card>
-    <md-card flex>
-        <md-card-header>
-            <md-card-avatar>
-                <img class="md-user-avatar" src="app/assets/0.jpg" />
-            </md-card-avatar>
-            <md-card-header-text>
-                <span class="md-title">User</span>
-                <span class="md-subhead">subhead</span>
-            </md-card-header-text>
-        </md-card-header>
-        <md-card-title>
-            <md-card-title-text>
-                <span class="md-headline">Action buttons</span>
-            </md-card-title-text>
-        </md-card-title>
-        <md-card-content>
-            <c3chart bindto-id="chart8">
-                <chart-column column-id="Data 1"
-                              column-values="30,200,100,400,150,250,50"
-                              column-type="line" />
-                <chart-axis>
-                    <chart-axis-x show="false" tick-count="1"></chart-axis-x>
-                    <chart-axis-y show="false"></chart-axis-y>
-                </chart-axis>
-            </c3chart>
-
-        </md-card-content>
-        <md-card-actions layout="row" layout-align="end center">
-            <md-button class="md-raised md-primary ">Action 2</md-button>
-            <md-button class="md-raised md-primary">Action 1</md-button>
-        </md-card-actions>
-    </md-card>
+    
 
 </md-content>

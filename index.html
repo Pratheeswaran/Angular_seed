@@ -19,10 +19,7 @@
     <!--<link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">-->
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-
     <link href="app/assets/css/c3.min.css" rel="stylesheet" type="text/css" />
-
-
     <script src="html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <body id="body" ng-controller="AppCtrl" ng-cloak md-theme="primary" md-theme-watch layout="column">
@@ -36,13 +33,10 @@
                         Sidenav Left
                     </h1>
                     <span flex ng-hide="isPinned"></span>
-
                     <md-icon hide-xs style="outline:none" class="material-icons  md-24" ng-click="lock()">
                         sort
                     </md-icon>
                 </div>
-
-
             </md-toolbar>
             <md-content flex layout-padding ng-controller="LeftCtrl">
                 <md-list flex>
@@ -74,7 +68,7 @@
                     <span flex></span>
                     <div>
                         <md-icon id="Notification_icon" class="material-icons  md-dark md-24">
-                            <svg style="position:absolute;" width="10" height="10">
+                            <svg ng-if="(Notifications | filter : {Seen:'false'}).length!=0" style="position:absolute;" width="10" height="10">
                                 <circle cx="5" cy="5" r="5" fill="#ff2828" />
                             </svg>
                             notifications
@@ -99,8 +93,8 @@
                         <img md-whiteframe="10" class="md-user-avatar" ng-src="{{user.img}}" alt="{{user.Name}}" />
                         <div id="User_Profile" outside-click md-whiteframe="15" ng-show="Show_User_Profile">
                             <md-list flex>
-                                <md-list-item class="md-1-line" >
-                                    <p  style="font-size:80%;margin:0px;line-height: 1.6;text-wrap:avoid">  online</p>
+                                <md-list-item class="md-1-line">
+                                    <p style="font-size:80%;margin:0px;line-height: 1.6;text-wrap:avoid">  online</p>
                                     <md-switch class="md-primary" ng-model="User.Online"></md-switch>
                                 </md-list-item>
                             </md-list>
@@ -113,11 +107,53 @@
                     </md-button>
                 </div>
             </md-toolbar>
-
             <md-content flex>
-                <div ng-view></div>
-                <md-sidenav md-disable-backdrop class="md-sidenav-right md-whiteframe-14dp" md-component-id="right" layout="column">
+                <div ng-view ></div>
+                <md-sidenav class="md-sidenav-right md-whiteframe-14dp" md-component-id="right" layout="column">
                     <md-content flex layout="column" layout-wrap>
+                        <md-sidenav class="md-sidenav-right md-whiteframe-14dp" md-component-id="right2" layout="column">
+                            <md-toolbar style="background-color:white; color:rgba(0, 0, 0, 0.71)">
+                                <div class="md-toolbar-tools" layout="row" layout-align="start center">
+                                    <md-button aria-label="Menu" class="md-icon-button" ng-click="Back_To_Chat()">
+                                        <md-icon class="material-icons md-dark md-24">
+                                            keyboard_arrow_left
+                                        </md-icon>
+                                    </md-button>
+                                    <h2 layout-align="center center">
+                                        {{Chat_Person.Name}}
+                                    </h2>
+                                    <span flex></span>
+                                    <div id="Online_circle_toolbar" ng-class="{'active' : Chat_Person.Online , 'inactive' : !Chat_Person.Online}"></div>
+                                    <small ng-if="Chat_Person.Online">Online</small>
+                                    <small ng-if="!Chat_Person.Online">Offline</small>
+                                </div>
+                            </md-toolbar>
+                            <md-content flex layout="column" layout-wrap>
+                                <div class="messages_box_content" id="chatBox" scroll-to-bottom="Chat_Person.messages">
+                                    <div ng-repeat="message in Chat_Person.messages" class="chat-conversation-user " ng-class=" {'him':message.From=='him', 'me':message.From=='me' }">
+                                        <div style="padding-bottom: 12px;font-size: 80%;" ng-bind="formatDate(message.Date)">
+                                        </div>
+                                        <div class="chat_content_message">
+                                            <p>
+                                                {{message.msg}}
+                                                <br /><small> {{message.Time}}</small>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="send_box_content" id="msgbox" layout="row">
+                                        <ng-form name="msgsend" layout="row">
+                                            <md-icon class="material-icons md-dark md-24">
+                                                photo_camera
+                                            </md-icon>
+                                            <input ng-model="my_message" type="text" class="message_box" ng-keyup="$event.keyCode == 13 && Send_message(my_message) " />
+                                            <md-icon ng-class="{'send_active' : my_message , 'send_inactive' : !my_message}" class="material-icons  md-24" ng-click="Send_message(my_message)">
+                                                send
+                                            </md-icon>
+                                        </ng-form>
+                                    </div>
+                                </div>
+                            </md-content>
+                        </md-sidenav>
                         <!--<section flex>
                             <md-subheader md-colors="{background: '{{accent}}-A200'}">Primary Colour change</md-subheader>
                             <div>
@@ -134,7 +170,6 @@
                                     <md-icon class="material-icons  md-dark md-24">
                                         people
                                     </md-icon>
-
                                 </md-tab-label>
                                 <md-tab-body class="md-padding">
                                     <md-subheader class="md-no-sticky">Online</md-subheader>
@@ -174,53 +209,6 @@
                         </md-tabs>
                     </md-content>
                 </md-sidenav>
-                <md-sidenav class="md-sidenav-right md-whiteframe-14dp" md-component-id="right2" layout="column">
-                    <md-toolbar style="background-color:white; color:rgba(0, 0, 0, 0.71)">
-                        <div class="md-toolbar-tools" layout="row" layout-align="start center">
-
-                            <md-button aria-label="Menu" class="md-icon-button" ng-click="Back_To_Chat()">
-                                <md-icon class="material-icons md-dark md-24">
-                                    keyboard_arrow_left
-                                </md-icon>
-                            </md-button>
-                            <h2 layout-align="center center">
-                                {{Chat_Person.Name}}
-                            </h2>
-                            <span flex></span>
-                            <div id="Online_circle_toolbar" ng-class="{'active' : Chat_Person.Online , 'inactive' : !Chat_Person.Online}"></div>
-                            <small ng-if="Chat_Person.Online">Online</small>
-                            <small ng-if="!Chat_Person.Online">Offline</small>
-                        </div>
-                    </md-toolbar>
-                    <md-content flex layout="column" layout-wrap>
-                        <div class="messages_box_content" id="chatBox" scroll-to-bottom="Chat_Person.messages">
-                            <div ng-repeat="message in Chat_Person.messages" class="chat-conversation-user " ng-class=" {'him':message.From=='him', 'me':message.From=='me' }">
-                                <div style="padding-bottom: 12px;font-size: 80%;" ng-bind="formatDate(message.Date)">
-                                </div>
-                                <div class="chat_content_message">
-                                    <p>
-                                        {{message.msg}}
-                                        <br /><small> {{message.Time}}</small>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="send_box_content" id="msgbox" layout="row">
-                                <ng-form name="msgsend" layout="row">
-                                    <md-icon class="material-icons md-dark md-24">
-                                        photo_camera
-                                    </md-icon>
-                                    <input ng-model="my_message" type="text" class="message_box" ng-keyup="$event.keyCode == 13 && Send_message(my_message) " />
-                                    <md-icon ng-class="{'send_active' : my_message , 'send_inactive' : !my_message}" class="material-icons  md-24" ng-click="Send_message(my_message)">
-                                        send
-                                    </md-icon>
-                                </ng-form>
-                            </div>
-                        </div>
-
-
-                    </md-content>
-                </md-sidenav>
-
             </md-content>
         </md-content>
     </md-content>
@@ -243,6 +231,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.js"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.css">
+    <!-- Resources for Map -->
+    <script src="https://www.amcharts.com/lib/3/ammap.js" type="text/javascript"></script>
+    <script src="https://www.amcharts.com/lib/3/maps/js/worldLow.js"></script>
+    <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+    <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
 
     <script src="app/assets/js/d3.min.js" charset="utf-8"></script>
     <script src="app/assets/js/c3.min.js"></script>
@@ -252,8 +246,7 @@
     <script src="app/components/version/version.js"></script>
     <script src="app/components/version/version-directive.js"></script>
     <script src="app/components/version/interpolate-filter.js"></script>
-
     <script src="app/assets/js/c3-angular.min.js"></script>
-
 </body>
 </html>
+

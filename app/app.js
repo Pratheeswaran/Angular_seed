@@ -6,7 +6,7 @@ angular.module('myApp', [
   'myApp.view1',
   'myApp.view2',
   'myApp.version', 'ngMaterial', 'gridshore.c3js.chart'
-])
+]).run(run)
     .config(['$locationProvider', '$routeProvider', '$mdThemingProvider', function ($locationProvider, $routeProvider, $mdThemingProvider) {
         $locationProvider.hashPrefix('!');
         $mdThemingProvider.generateThemesOnDemand(true);
@@ -176,6 +176,14 @@ angular.module('myApp', [
     }
 }]);
 
+
+function run($rootScope, $location, $window) {
+    $rootScope.$on('$routeChangeStart', function () {
+    }
+    )
+}
+
+
 function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdColorPalette, $mdColors, $mdColorUtil, $mdMedia, $filter, $anchorScroll) {
     $scope.Show_Notification = false;
     $scope.Show_User_Profile = false;
@@ -195,13 +203,13 @@ function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdC
         { Name: "Message form TeamLead ", Action: "Message", Seen: false, Icon: "textsms" },
         { Name: "Finish the Messaging Module", Action: "Task", Seen: false, Icon: "code" }];
     $scope.user = { Name: "popeye", Online: true, img: "app/assets/popeye1.png" };
-    $scope.people = [{ Name: "Vinoth", Online: true, img: "app/assets/0.jpg" },
-        { Name: "Arun", Online: false, img: "app/assets/0.jpg", messages: [] },
-        { Name: "Sampath", Online: true, img: "app/assets/0.jpg", messages: [] },
-        { Name: "Mahesh", Online: false, img: "app/assets/0.jpg", messages: [] },
-        { Name: "Ranjth", Online: true, img: "app/assets/0.jpg", messages: [] },
-        { Name: "Mahesh", Online: true, img: "app/assets/0.jpg", messages: [] },
-        { Name: "Vivek", Online: false, img: "app/assets/0.jpg", messages: [] }];
+    $scope.people = [{ Name: "Vinoth", Online: true, img: "app/assets/vinoth.jpg" },
+        { Name: "Arun", Online: false, img: "app/assets/arun.jpg", messages: [] },
+        { Name: "Sampath", Online: true, img: "app/assets/sampath.jpg", messages: [] },
+        { Name: "Mahesh", Online: false, img: "app/assets/mahesh.jpg", messages: [] },
+        { Name: "Ranjth", Online: true, img: "app/assets/ranjth.jpg", messages: [] },
+        { Name: "Mano", Online: true, img: "app/assets/mano.jpg", messages: [] },
+        { Name: "Vivek", Online: false, img: "app/assets/vivek.jpg", messages: [] }];
     angular.forEach($scope.people, function (item) {
 
         var messages = [{ msg: "Hai", Time: "12.30 PM", From: "me", Date: new Date("2017-01-27") },
