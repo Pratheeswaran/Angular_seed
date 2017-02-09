@@ -112,9 +112,9 @@
         $scope.Donut = {
             data: {
                 columns: [
-                    ['Vinoth', 30],
-                    ['Vivek', 120],
-                    ['Arun', 120]
+                    ['vinoth', 30],
+                    ['vivek', 120],
+                    ['arun', 120]
                 ],
                 type: 'donut',
                 onclick: function (d, i) { },
