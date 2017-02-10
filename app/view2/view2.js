@@ -6,7 +6,7 @@ angular.module('myApp.view2', ['ngRoute'])
         templateUrl: 'app/view2/view2.html',
         controller: 'View2Ctrl'
     });
-}]).run(run)
+}])
 .directive('worldmap',function () {
        return {
            restrict: 'E',
