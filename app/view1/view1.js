@@ -1,5 +1,4 @@
 // using C3 (be sure to include it before, same with D3, which C3 requires)
-; (function (c3) {
     'use strict';
 
     // module definition, this has to be included in your app
@@ -45,18 +44,19 @@
                         // but works pretty well and allows us to have more controll
                         $timeout(function () {
                             c3SimpleService[$scope.config.bindto] = c3.generate(newConfig);
-                            console.log(c3SimpleService[$scope.config.bindto])
+                            if (!newConfig.size) {
+                                c3SimpleService[$scope.config.bindto].resize();
+                            }
                         });
                         // if there is no size specified, we are assuming, that chart will have width
                         // of its container (proportional of course) - great for responsive design
-                        if (!newConfig.size) {
-                            c3SimpleService[$scope.config.bindto].resize();
-                        }
 
                         // only updating data (enables i.e. animations)
                         $scope.$watch('config.data', function (newData, oldData) {
                             if ($scope.config.bindto) {
-                                c3SimpleService[$scope.config.bindto].load(newData);
+                                $timeout(function () {
+                                    c3SimpleService[$scope.config.bindto].load(newData);
+                                });
                             }
                         }, true);
                     }, true);
@@ -64,72 +64,68 @@
             }]
         };
     }]);
-}(c3));
 
 'use strict';
-; (function (c3) {
-    angular.module('myApp.view1', ['ngRoute', 'angular-c3-simple'])
-    .config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/view1', {
-            //use  templateUrl: 'view2/view2.html', in local
-            templateUrl: 'app/view1/view1.html',
-            controller: 'View1Ctrl'
-        });
-    }])
-    .controller('View1Ctrl', ['$scope', 'c3SimpleService', '$timeout', function ($scope, c3SimpleService, $timeout, $element) {
-        d3.select('.container').insert('div', '.chart').attr('class', 'legend').selectAll('span')
-    .data(['data1', 'data2', 'data3'])
-  .enter().append('span')
-    .attr('data-id', function (id) { return id; })
-    .html(function (id) { return id; })
-    .each(function (id) {
-        d3.select(this).style('background-color', chart.color(id));
-    })
-    .on('mouseover', function (id) {
-        chart.focus(id);
-    })
-    .on('mouseout', function (id) {
-        chart.revert();
-    })
-    .on('click', function (id) {
-        chart.toggle(id);
+angular.module('myApp.view1', ['ngRoute', 'angular-c3-simple'])
+.config(['$routeProvider', function ($routeProvider) {
+    $routeProvider.when('/view1', {
+        //use  templateUrl: 'view2/view2.html', in local
+        templateUrl: 'app/view1/view1.html',
+        controller: 'View1Ctrl'
     });
+}])
+.controller('View1Ctrl', ['$scope', 'c3SimpleService', '$timeout', function ($scope, c3SimpleService, $timeout, $element) {
+    d3.select('.container').insert('div', '.chart').attr('class', 'legend').selectAll('span')
+.data(['data1', 'data2', 'data3'])
+.enter().append('span')
+.attr('data-id', function (id) { return id; })
+.html(function (id) { return id; })
+.each(function (id) {
+    d3.select(this).style('background-color', chart.color(id));
+})
+.on('mouseover', function (id) {
+    chart.focus(id);
+})
+.on('mouseout', function (id) {
+    chart.revert();
+})
+.on('click', function (id) {
+    chart.toggle(id);
+});
 
-        $scope.chart = {
-            data: {
-                columns: [
-                    ['data1', 30, 200, 100, 400, 150, 250],
-                ]
-            },
-            axis: {
-                x: {
-                    show: false
-                }, y: {
-                    show: false
-                }
-            }
-        };
-        $scope.Donut = {
-            data: {
-                columns: [
-                    ['vinoth', 30],
-                    ['vivek', 120],
-                    ['arun', 120]
-                ],
-                type: 'donut',
-                onclick: function (d, i) { },
-                onmouseover: function (d, i) {; },
-                onmouseout: function (d, i) { }
-            },
-            donut: {
-                title: "Contributions"
-            },
-            tooltip: {
-
-                contents: function (d) { return '<img class="md-user-avatar" src="app/assets/' + d[0].id + '.jpg"  md-whiteframe="20">' },
+    $scope.chart = {
+        data: {
+            columns: [
+                ['data1', 30, 200, 100, 400, 150, 250],
+            ]
+        },
+        axis: {
+            x: {
+                show: false
+            }, y: {
+                show: false
             }
         }
+    };
+    $scope.Donut = {
+        data: {
+            columns: [
+                ['vinoth', 30],
+                ['vivek', 120],
+                ['arun', 120]
+            ],
+            type: 'donut',
+            onclick: function (d, i) { },
+            onmouseover: function (d, i) {; },
+            onmouseout: function (d, i) { }
+        },
+        donut: {
+            title: "Contributions"
+        },
+        tooltip: {
 
-    }]);
+            contents: function (d) { return '<img class="md-user-avatar" src="app/assets/' + d[0].id + '.jpg"  md-whiteframe="20">' },
+        }
+    }
 
-}(c3));
+}]);

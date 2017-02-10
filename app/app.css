@@ -73,31 +73,42 @@ md-nav-bar .md-nav-bar {
 
 .md-user-avatar {
     border-radius: 50%;
-    height:35px;
+    height: 35px;
     width: 35px;
 }
-.User_Button{
-    margin:0px 10px;
-}
-#Notification_icon,#User_Profile_icon
-{
-    margin:0px 10px;
-    cursor:pointer;
-}
-#Notification
-{
-    z-index:61;
-    position:absolute;
-    background-color:white;
-}
-#User_Profile{
-    z-index:9999;
-    position:absolute;
-    background-color:white;
-}
-#Notification::before
-{
 
+.User_Button {
+    margin: 0px 10px;
+}
+
+#Notification_icon, #User_Profile_icon {
+    margin: 0px 10px;
+    cursor: pointer;
+}
+
+#User_Profile md-list {
+      animation-name: example;
+    animation-duration: .5s;
+}
+
+
+#Notification md-list {
+      animation-name: example;
+    animation-duration: .5s;
+}
+
+#Notification {
+    z-index: 61;
+    position: absolute;
+}
+
+#User_Profile {
+    z-index: 9999;
+    position: absolute;
+  
+}
+
+#Notification::before {
 }
 
 
@@ -287,7 +298,17 @@ md-icon {
     outline: none;
 }
 
+@keyframes example   {
+   0% {
+        margin-top: -20px;
+        opacity: 0;
+    }
 
+    100% {
+        margin-top: 0;
+        opacity: 1;
+    }
+}
 
 @keyframes slideFromLeft {
     0% {
@@ -363,8 +384,8 @@ md-icon {
 
 /*-------------------------------------------------------------------Chart----------------------------------------------------------------------*/
 #chartdiv {
-  width: 100%;
-  height: 435px;
+    width: 100%;
+    height: 435px;
 }
 
 .map-marker {
@@ -373,9 +394,11 @@ md-icon {
     margin-left: -8px;
     margin-top: -8px;
 }
-.map-marker.map-clickable {
-    cursor: pointer;
-}
+
+    .map-marker.map-clickable {
+        cursor: pointer;
+    }
+
 .pulse {
     width: 10px;
     height: 10px;
@@ -386,7 +409,8 @@ md-icon {
     background-color: #716f42;
     z-index: 10;
     position: absolute;
-  }
+}
+
 .map-marker .dot {
     border: 10px solid #fff601;
     background: transparent;
@@ -406,48 +430,58 @@ md-icon {
     left: -25px;
     z-index: 1;
     opacity: 0;
-  }
-  @-moz-keyframes pulse {
-   0% {
-      -moz-transform: scale(0);
-      opacity: 0.0;
-   }
-   25% {
-      -moz-transform: scale(0);
-      opacity: 0.1;
-   }
-   50% {
-      -moz-transform: scale(0.1);
-      opacity: 0.3;
-   }
-   75% {
-      -moz-transform: scale(0.5);
-      opacity: 0.5;
-   }
-   100% {
-      -moz-transform: scale(1);
-      opacity: 0.0;
-   }
-  }
-  @-webkit-keyframes pulse {
-   0% {
-      -webkit-transform: scale(0);
-      opacity: 0.0;
-   }
-   25% {
-      -webkit-transform: scale(0);
-      opacity: 0.1;
-   }
-   50% {
-      -webkit-transform: scale(0.1);
-      opacity: 0.3;
-   }
-   75% {
-      -webkit-transform: scale(0.5);
-      opacity: 0.5;
-   }
-   100% {
-      -webkit-transform: scale(1);
-      opacity: 0.0;
-   }
-  }
+}
+
+@-moz-keyframes pulse {
+    0% {
+        -moz-transform: scale(0);
+        opacity: 0.0;
+    }
+
+    25% {
+        -moz-transform: scale(0);
+        opacity: 0.1;
+    }
+
+    50% {
+        -moz-transform: scale(0.1);
+        opacity: 0.3;
+    }
+
+    75% {
+        -moz-transform: scale(0.5);
+        opacity: 0.5;
+    }
+
+    100% {
+        -moz-transform: scale(1);
+        opacity: 0.0;
+    }
+}
+
+@-webkit-keyframes pulse {
+    0% {
+        -webkit-transform: scale(0);
+        opacity: 0.0;
+    }
+
+    25% {
+        -webkit-transform: scale(0);
+        opacity: 0.1;
+    }
+
+    50% {
+        -webkit-transform: scale(0.1);
+        opacity: 0.3;
+    }
+
+    75% {
+        -webkit-transform: scale(0.5);
+        opacity: 0.5;
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        opacity: 0.0;
+    }
+}

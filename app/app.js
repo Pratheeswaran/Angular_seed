@@ -9,6 +9,7 @@ angular.module('myApp', [
 ]).run(run)
     .config(['$locationProvider', '$routeProvider', '$mdThemingProvider', function ($locationProvider, $routeProvider, $mdThemingProvider) {
         $locationProvider.hashPrefix('!');
+        $mdThemingProvider.alwaysWatchTheme(true);
         $mdThemingProvider.generateThemesOnDemand(true);
         $mdThemingProvider.definePalette('amazingPaletteName', {
             '50': 'ffebee',
@@ -34,18 +35,26 @@ angular.module('myApp', [
         });
 
         $mdThemingProvider.theme('primary')
-         .primaryPalette('blue')
+           .primaryPalette('amazingPaletteName')
           .accentPalette('yellow');
         $mdThemingProvider.setDefaultTheme('primary');
         //themes are still defined in config, but the css is not generated
         $mdThemingProvider.theme('altTheme')
-          .primaryPalette('amazingPaletteName')
+          .primaryPalette('blue')
 
     // If you specify less than all of the keys, it will inherit from the
     // default shades
     .accentPalette('purple', {
         'default': '200' // use shade 200 for default, and keep all other shades the same
-    }).dark();;
+    }).dark();
+        $mdThemingProvider.theme('altTheme2')
+                 .primaryPalette('blue')
+
+           // If you specify less than all of the keys, it will inherit from the
+           // default shades
+           .accentPalette('purple', {
+               'default': '200' // use shade 200 for default, and keep all other shades the same
+           });
 
         $routeProvider.otherwise({ redirectTo: '/view1' });
     }])
@@ -185,6 +194,7 @@ function run($rootScope, $location, $window) {
 
 
 function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdColorPalette, $mdColors, $mdColorUtil, $mdMedia, $filter, $anchorScroll) {
+  
     $scope.Show_Notification = false;
     $scope.Show_User_Profile = false;
     $scope.Show_Notification_Click = function () {
@@ -194,7 +204,6 @@ function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdC
         $scope.Show_User_Profile = !$scope.Show_User_Profile;
     }
     $scope.Notification_Click = function (val) {
-        console.log(val)
         $timeout(function () { $scope.Notifications[val].Seen = true; }, 200)
 
     }
@@ -224,10 +233,8 @@ function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdC
     });
 
     $scope.formatDate = function (date) {
-        console.log(date)
         $scope.today = new Date();
         var diff = $filter('date')($scope.today - date, 'dd');
-        console.log(diff)
         if (diff == 1) {
             $scope.PrevDate = "Today"
         }
@@ -248,7 +255,7 @@ function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdC
             return null;
         }
     };
-    $scope.primary = 'purple';
+    $scope.primary = 'blue';
     $scope.accent = 'green';
     $scope.colors = Object.keys($mdColorPalette);
     $scope.isPinned = false;
@@ -261,7 +268,7 @@ function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdC
             $scope.myStyle = { width: '100%' };
         }
     });
-    console.log()
+   
     $scope.lock = function () {
         $timeout(function () {
             $mdSidenav('left').close()
@@ -284,6 +291,7 @@ function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdC
         $scope.accent = color;
     };
     $mdTheming.generateTheme('altTheme');
+    $mdTheming.generateTheme('altTheme2');
     $mdTheming.generateTheme('primary');
     var route = $location.path().split("/")[1] || null;
     if (route)
@@ -295,7 +303,6 @@ function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdC
         //element[0].scrollTop = element[0].scrollHeight + 10;
         var elmnt = document.getElementById("chatBox");
         elmnt.scrollTop = 500;
-        console.log(elmnt.scrollTop)
         $scope.Chat_Person = person;
     };
     $scope.Back_To_Chat = function () {
