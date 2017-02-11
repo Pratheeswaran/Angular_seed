@@ -33,7 +33,7 @@
                         Sidenav Left
                     </h1>
                     <span flex ng-hide="isPinned"></span>
-                    <md-icon hide-xs style="outline:none" class="material-icons  md-24" ng-click="lock()">
+                    <md-icon hide-xs style="outline:none" class="material-icons md-toolbar_icon  md-24" ng-click="lock()">
                         sort
                     </md-icon>
                 </div>
@@ -55,10 +55,10 @@
             </md-content>
         </md-sidenav>
         <md-content flex layout="column" md-theme="{{Mytheme}}">
-            <md-toolbar md-colors="{background: '{{primary}}-800'}" style="background-color:white; color:rgba(0, 0, 0, 0.71)" md-whiteframe="7">
+            <md-toolbar spy-style spy-attribute="color" md-colors="{background: '{{primary}}-800'}" md-whiteframe="7">
                 <div class="md-toolbar-tools">
                     <md-button aria-label="Menu" hide-gt-xs class="md-icon-button" ng-click="toggleLeft()">
-                        <md-icon class="material-icons  md-dark md-24">
+                        <md-icon class="material-icons md-toolbar_icon md-24">
                             menu
                         </md-icon>
                     </md-button>
@@ -67,7 +67,7 @@
                     </h2>
                     <span flex></span>
                     <div>
-                        <md-icon id="Notification_icon" class="material-icons  md-dark md-24">
+                        <md-icon id="Notification_icon" class="material-icons  md-toolbar_icon md-24">
                             <svg ng-if="(Notifications | filter : {Seen:'false'}).length!=0" style="position:absolute;" width="10" height="10">
                                 <circle cx="5" cy="5" r="5" fill="#ff2828" />
                             </svg>
@@ -78,11 +78,11 @@
                                 <md-subheader ng-if="(Notifications | filter : {Seen:'false'}).length!=0" class="md-no-sticky">{{ (Notifications | filter : {Seen:'false'}).length}} Unread</md-subheader>
                                 <md-subheader ng-if="(Notifications | filter : {Seen:'false'}).length==0" class="md-no-sticky">Caught up with everything!</md-subheader>
                                 <md-list-item class="md-1-line" ng-repeat="Notification in Notifications | filter : {Seen:'false'}" ng-click="Notification_Click( Notifications.indexOf(Notification))">
-                                    <div class="md-list-item-text" layout="row" layout-align="center center">
+                                    <div layout="row" layout-align="center center">
                                         <md-icon style="margin:0px 10px" class="material-icons md-dark  md-24">
                                             {{Notification.Icon}}
                                         </md-icon>
-                                        <p style="font-size:80%;margin:0px;line-height: 1.6;text-wrap:avoid">{{Notification.Name}}</p>
+                                        <p class="md-list-item-text">{{Notification.Name}}</p>
                                     </div>
                                 </md-list-item>
                             </md-list>
@@ -94,26 +94,27 @@
                         <md-content id="User_Profile" outside-click md-whiteframe="15" ng-show="Show_User_Profile">
                             <md-list flex>
                                 <md-list-item class="md-1-line">
-                                    <p class="md-list-item-text" style="margin:0px 10px;font-size:80%;line-height: 1.6;text-wrap:avoid">  online</p>
-                                    <md-switch class="md-primary" ng-model="User.Online"></md-switch>
+                                    <p class="md-list-item-text" ng-show="user.Online">Online</p>
+                                    <p class="md-list-item-text" ng-hide="user.Online">Offline</p>
+                                    <md-switch class="md-primary" ng-model="user.Online"></md-switch>
                                 </md-list-item>
                                 <md-list-item class="md-1-line">
-                                    <p class="md-list-item-text" style="margin:0px 10px;font-size:80%;line-height: 1.6;text-wrap:avoid">{{Mytheme}}</p>
-                                    <md-switch class="md-primary" ng-model="Mytheme" ng-true-value="'altTheme'" ng-false-value="'altTheme2'"></md-switch>
+                                    <p class="md-list-item-text" ng-show="Mytheme !='altTheme'">Light Theme<p>
+                                    <p class="md-list-item-text" ng-show="Mytheme =='altTheme'">Dark Theme<p>
+                                        <md-switch class="md-primary" ng-model="Mytheme" ng-true-value="'altTheme'" ng-false-value="'altTheme2'"></md-switch>
                                 </md-list-item>
                             </md-list>
                         </md-content>
                     </div>
                     <md-button aria-label="Menu" class="md-icon-button" ng-click="toggleRight()">
-
-
-                        <md-icon class="material-icons  md-dark md-24">
+                        <md-icon class="material-icons md-toolbar_icon md-24">
                             chat
                         </md-icon>
                     </md-button>
                 </div>
             </md-toolbar>
-            <md-content flex>
+            <md-progress-linear md-colors="{background: '{{primary}}'}" ng-if="Load_Document" class="md-accent" md-mode="indeterminate"></md-progress-linear>
+            <md-content flex >
                 <div ng-view></div>
                 <md-sidenav class="md-sidenav-right md-whiteframe-14dp" md-component-id="right" layout="column">
                     <md-content flex layout="column" layout-wrap>
@@ -192,18 +193,30 @@
                                     </md-icon>
                                 </md-tab-label>
                                 <md-tab-body class="md-padding">
+                                    <md-content>
+                                        <md-list flex>
+                                            <md-list-item class="md-1-line" ng-repeat="Event in Events" ng-click="null">
+                                                <div layout="row" layout-align="center center">
+                                                    <md-icon style="margin:0px 10px" class="material-icons md-dark  md-24">
+                                                        {{Event.Icon}}
+                                                    </md-icon>
+                                                    <p style="line-height:20px">{{Event.Name}}</p>
+                                                </div>
+                                            </md-list-item>
+                                        </md-list>
+                                    </md-content>
                                 </md-tab-body>
                             </md-tab>
                             <md-tab>
                                 <md-tab-label>
                                     <md-icon class="material-icons  md-dark md-24">
-                                      settings
+                                        settings
                                     </md-icon>
                                 </md-tab-label>
-                                <md-tab-body class="md-padding">
+                                <md-tab-body>
                                     <md-content>
-                                        <md-button style="z-index: 0; border-radius:14%;width:30px;height: 33px;" class="md-fab" aria-label="Eat cake" ng-repeat="color in colors" md-colors="{background: '{{color}}'}" md-colors-watch="false" ng-click="selectThemePrimary(color)">
-                                        </md-button>
+                                        <md-list-item ng-repeat="color in colors" md-colors="{background: '{{color}}'}" md-colors-watch="false" ng-click="selectThemePrimary(color)">
+                                        </md-list-item>
                                     </md-content>
                                 </md-tab-body>
                             </md-tab>

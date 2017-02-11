@@ -44,9 +44,14 @@ angular.module('angular-c3-simple', [])
                     // but works pretty well and allows us to have more controll
                     $timeout(function () {
                         c3SimpleService[$scope.config.bindto] = c3.generate(newConfig);
+                        setTimeout(function () {
+                            c3SimpleService[$scope.config.bindto].load(newConfig.data);
+                        }, 10500);
+
                         if (!newConfig.size) {
                             c3SimpleService[$scope.config.bindto].resize();
                         }
+
                     });
                     // if there is no size specified, we are assuming, that chart will have width
                     // of its container (proportional of course) - great for responsive design
@@ -76,8 +81,177 @@ angular.module('myApp.view1', ['ngRoute', 'angular-c3-simple'])
         controller: 'View1Ctrl'
     });
 }])
-.controller('View1Ctrl', ['$scope', 'c3SimpleService', '$timeout', function ($scope, c3SimpleService, $timeout, $element) {
-   
+.controller('View1Ctrl', ['$scope', 'c3SimpleService', '$timeout', 'Load_document', '$rootScope', function ($scope, c3SimpleService, $timeout, Load_document, $rootScope,  $element) {
+    Load_document.Start($rootScope);
+    $scope.Traffic = {
+        data: {
+            columns: [
+                ['data1', 30, 200, 100, 400, 150, 250],
+                ['data2', 130, 100, 140, 200, 150, 50]
+            ],
+            types: {
+                data1: 'area-spline',
+                data2: 'area-spline'
+            }
+
+        },
+        color: {
+
+            pattern: ['#ffffff', '#aec7e8']
+        },
+        grid: {
+            x: {
+                show: false
+            },
+            y: {
+                show: true
+            }
+        },
+        axis: {
+            x: {
+                show: false
+            }, y: {
+                show: false
+            }
+        },
+        legend: {
+            show: false
+        },
+        tooltip: {
+            show: false
+        }
+    }
+    $scope.Projects = [
+        { Name: "Web service", Language: "C++", Status: "Active" },
+        { Name: "Mobile appication", Language: "java", Status: "Completed" },
+        { Name: "Sales Forecasting", Language: "Python", Status: "Idle" },
+        { Name: "Company site", Language: "C#", Status: "Completed" },
+        { Name: "Company blog", Language: "Java script", Status: "Bugs posted" }
+    ];
+    $scope.Issues = [
+      { Name: "Browser issues", id: "5463",progress:30 },
+      { Name: "Alignment issues in chat box", id: "3245", progress: 55 },
+      { Name: "Dynamic data updating issues", id: "7653", progress: 22 },
+      { Name: "Home button", Language: "C#", id: "2123", progress: 87 }
+    ];
+
+    $scope.Growth = {
+        data: {
+            columns: [
+                ['data1', 30, 20, 10, 40, 15, 25, 13, 10, 14, 20, 26],
+            ],
+            type: 'bar'
+        },
+        bar: {
+            width: {
+                ratio: 0.5 // this makes bar width 50% of length between ticks
+            }
+
+            // or
+            //width: 100 // this makes bar width 100px
+        },
+        axis: {
+            x: {
+                show: false
+            }, y: {
+                show: false
+            }
+        },
+        legend: {
+            show: false
+        },
+        tooltip: {
+            show: false
+        }
+    };
+    $scope.Commits = {
+        data: {
+            columns: [
+                ['data1', 30, 20, 10, 40, 15, 25, 13, 10, 14, 20, 26],
+            ],
+            type: 'spline'
+        },
+        bar: {
+            width: {
+                ratio: 0.5 // this makes bar width 50% of length between ticks
+            }
+            // or
+            //width: 100 // this makes bar width 100px
+        },
+        axis: {
+            x: {
+                show: false
+            }, y: {
+                show: false
+            }
+        },
+        legend: {
+            show: false
+        },
+        tooltip: {
+            show: false
+        }
+    };
+    $scope.Clients = {
+        data: {
+            columns: [
+                ['data1', 50, -30, 40, -20, 30, -25, 33, -50, -40, 20, 46],
+            ],
+            type: 'bar'
+        },
+        bar: {
+            width: {
+                ratio: 0.5 // this makes bar width 50% of length between ticks
+            }
+            // or
+            //width: 100 // this makes bar width 100px
+        },
+        axis: {
+            x: {
+                show: false
+            }, y: {
+                show: false
+            }
+        },
+        legend: {
+            show: false
+        },
+        tooltip: {
+            show: false
+        }
+    };
+    $scope.Invoice = {
+        data: {
+            columns: [
+                ['data1', 40, 20, 14, 30, 20, 25, 26, 10, 40, 20, 25],
+                ['data2', 30, 40, 10, 40, 15, 25, 15, 10, 14, 20, 26]
+            ],
+            types: {
+                data1: 'spline',
+                data2: 'bar',
+            },
+        },
+        bar: {
+            width: {
+                ratio: 0.5 // this makes bar width 50% of length between ticks
+            }
+            // or
+            //width: 100 // this makes bar width 100px
+        },
+        axis: {
+            x: {
+                show: false
+            }, y: {
+                show: false
+            }
+        },
+        legend: {
+            show: false
+        },
+        tooltip: {
+            show: false
+        }
+    };
 
     $scope.chart = {
         data: {
@@ -105,13 +279,21 @@ angular.module('myApp.view1', ['ngRoute', 'angular-c3-simple'])
             onmouseover: function (d, i) {; },
             onmouseout: function (d, i) { }
         },
+
         donut: {
-            title: "Contributions"
+            width: 50,
         },
         tooltip: {
-
             contents: function (d) { return '<img class="md-user-avatar" src="app/assets/' + d[0].id + '.jpg"  md-whiteframe="20">' },
         }
     }
+    $scope.Change = true;
+    $scope.Tasks = [
+        { Name: "New reports addition", Time: "Monday", Done: false, on: "Web API",color:"green" },
+        { Name: "Issues to be solved", Time: "Friday", Done: false, on: "Web API", color: "purple" },
+        { Name: "Notifications alerts", Time: "later", Done: false, on: "Mobile API", color: "teal" },
+        { Name: "Change the Design", Time: "Today", Done: true, on: "Mobile API", color: "red" }
+    ]
+    $timeout(function () { Load_document.Stop($rootScope); }, 1500)
 
 }]);

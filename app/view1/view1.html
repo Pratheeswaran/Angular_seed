@@ -1,29 +1,191 @@
-<md-content id="view1" layout="row" flex layout-wrap layout-padding layout-margin >
-    <md-card flex="100"  md-whiteframe="7">
-        <md-card-title>
-            <md-card-title-text>
-                <span class="md-headline">Contributions By Individuals In Project X</span>
-            </md-card-title-text>
-        </md-card-title>
-        <md-card-content>
-            <div c3-simple id="Donut" config="Donut"></div>
-        </md-card-content>
-    </md-card>
-    
-    <md-card flex="100"  md-whiteframe="7">
-        <md-card-header>
-            <md-card-avatar>
-                <img class="md-user-avatar" src="app/assets/arun.jpg" />
-            </md-card-avatar>
-            <md-card-header-text>
-                <span class="md-title">Arun</span>
-                <span class="md-subhead">Progress this week</span>
-            </md-card-header-text>
-        </md-card-header>
-        <md-card-content>
-            <div c3-simple id="chart" config="chart"></div>
-        </md-card-content>
-    </md-card>
-    
+<md-content id="view1" layout="column" flex layout-wrap layout-padding layout-margin>
+    <div layout="row" flex="50">
+        <md-card flex="25" md-whiteframe="13">
+            <md-card-header md-colors="::{backgroundColor: 'pink-400'}">
+                <md-card-header-text layout-align="center center">
+                    <span class="md-title">Total Growth</span>
 
+                    <span style="font-size:28px !important;font-weight:bold" class="md-headline">
+                        <md-icon class="material-icons md-light md-24" style="font-weight:bold !important">
+                            group_work
+                        </md-icon>798
+                    </span>
+                    <span class="md-title" style="font-size:12px !important">
+                        <md-icon class="material-icons md-light md-24">
+                            trending_up
+                        </md-icon> 15% from yesterday
+                    </span>
+                </md-card-header-text>
+            </md-card-header>
+            <md-card-content flex md-colors="::{backgroundColor: 'pink-500'}">
+                <div c3-simple style="height:40px" id="Growth" config="Growth"></div>
+            </md-card-content>
+        </md-card>
+        <md-card flex="25" md-whiteframe="13">
+            <md-card-header md-colors="::{backgroundColor: 'orange-400'}">
+                <md-card-header-text layout-align="center center">
+                    <span class="md-title">Individuals Commits</span>
+                    <span style="font-size:28px !important;font-weight:bold" class="md-headline">
+                        <md-icon class="material-icons md-dark md-24">linear_scale</md-icon>12
+                    </span>
+                    <span class="md-title" style="font-size:12px !important">
+                        <md-icon class="material-icons md-dark md-24" style="font-weight:bold !important">
+                            trending_down
+                        </md-icon> 30% in this month
+                    </span>
+                </md-card-header-text>
+            </md-card-header>
+            <md-card-content flex md-colors="::{backgroundColor: 'orange-500'}">
+                <div c3-simple style="height:40px" id="Commits" config="Commits"></div>
+
+            </md-card-content>
+        </md-card>
+        <md-card flex="25" md-whiteframe="13">
+            <md-card-header md-colors="::{backgroundColor: 'cyan-400'}">
+                <md-card-header-text layout-align="center center">
+                    <span class="md-title">Active Clients</span>
+                    <span style="font-size:28px !important;font-weight:bold" class="md-headline">
+                        <md-icon class="material-icons md-dark md-24" style="font-weight:bold !important">
+                            group_add
+                        </md-icon>798
+                    </span>
+                    <span class="md-title" style="font-size:12px !important">
+                        <md-icon class="material-icons md-dark md-24" style="font-weight:bold !important">
+                            trending_up
+                        </md-icon> 50% from morning
+                    </span>
+                </md-card-header-text>
+            </md-card-header>
+            <md-card-content flex md-colors="::{backgroundColor: 'cyan-500'}">
+                <div c3-simple style="height:40px" id="Clients" config="Clients"></div>
+            </md-card-content>
+        </md-card>
+        <md-card flex="25" md-whiteframe="13">
+            <md-card-header md-colors="::{backgroundColor: 'teal-400'}">
+                <md-card-header-text layout-align="center center">
+                    <span class="md-title">
+                        New Invoice
+                    </span>
+                    <span style="font-size:28px !important;font-weight:bold" class="md-headline">
+                        <md-icon class="material-icons md-dark md-24" style="font-weight:bold !important">
+                            attach_money
+                        </md-icon>798
+                    </span>
+                    <span class="md-title" style="font-size:12px !important">
+                        <md-icon class="material-icons md-dark md-24">
+                            trending_down
+                        </md-icon> 2% this month
+                    </span>
+                </md-card-header-text>
+            </md-card-header>
+            <md-card-content flex md-colors="::{backgroundColor: 'teal-500'}">
+                <div c3-simple style="height:40px" id="Invoice" config="Invoice"></div>
+            </md-card-content>
+        </md-card>
+    </div>
+    <div layout="row" flex="50">
+        <md-card flex="70" md-whiteframe="15">
+            <md-card-title md-colors="::{backgroundColor: 'blue-500'}">
+                <md-card-title-text>
+                    <span class="md-headline"> Data Traffic to server</span>
+                    <div style="height:200px" c3-simple id="Traffic" config="Traffic"></div>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+                <div style="height:200px" c3-simple id="Donut" config="Donut"></div>
+            </md-card-content>
+        </md-card>
+        <md-card flex="30" md-whiteframe="15">
+            <md-card-title md-colors="::{backgroundColor: 'blue-grey-500'}">
+                <md-card-title-text>
+                    <span class="md-headline">My Tasks</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+                <md-list>
+                    <md-list-item ng-repeat="Task in Tasks">
+                        <md-divider></md-divider>
+                        <md-checkbox class="md-primary" ng-model="Task.Done"></md-checkbox>
+                        <div ng-class="{strike: Task.Done}">
+                            <p>{{Task.Name|titleCase}}</p>
+                        </div>
+                        <span flex></span>
+                        <div style="text-align:center;">
+                            <p md-colors="{background: '{{Task.color}}'}" style="border-radius:10px; padding:0px 5px; color:white;">
+                                {{Task.on|titleCase}}
+                            </p>
+                        </div>
+                        <md-divider></md-divider>
+                    </md-list-item>
+                </md-list>
+                <!--<div c3-simple id="chart" config="chart"></div>-->
+            </md-card-content>
+        </md-card>
+
+    </div>
+    <div layout="row" flex="50">
+        <md-card flex="50" md-whiteframe="15">
+            <md-card-title>
+                <span class="md-title">
+                    <md-icon class="material-icons md-dark md-48" style="font-weight:bold !important">
+                        folder
+                    </md-icon>
+                </span>
+                <span class="md-headline" style="padding:10px 30px">
+                    Projects
+                </span>
+                <md-card-title-text>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+                <md-list>
+                    <md-list-item ng-repeat="Project in Projects">
+                        <md-divider></md-divider>
+                        <div>
+                            <p>{{Project.Name|titleCase}}</p>
+                        </div>
+                        <span flex></span>
+                        <div style="text-align:center;">
+                            <p style="border-radius:10px; padding:0px 10px; background-color:#4b4b4b;color:white;">
+                                {{Project.Language|titleCase}}
+                            </p>
+                        </div>
+                        <md-divider></md-divider>
+                    </md-list-item>
+                </md-list>
+            </md-card-content>
+        </md-card>
+        <md-card flex="50" md-whiteframe="15">
+            <md-card-title>
+                <span class="md-title">
+                    <md-icon class="material-icons md-dark md-48" style="font-weight:bold !important">
+                        bug_report
+                    </md-icon>
+                </span>
+                <md-card-title-text>
+                <span class="md-headline" style="padding:10px 30px">
+                    Issues
+                <span class="md-subhead" style="padding:10px 30px">
+                Assigned to you
+                </span>
+                </span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+                <md-list>
+                    <md-list-item ng-repeat="Issue in Issues">
+                        <md-divider></md-divider>
+                        <div>
+                            <p><b># {{Issue.id|titleCase}} </b>  {{Issue.Name|titleCase}}</p>
+                        </div>
+                        <span flex></span>
+                        <div flex="25">
+                            <md-progress-linear md-mode="determinate" value="{{Issue.progress}}"></md-progress-linear>
+                        </div>
+                        <md-divider></md-divider>
+                    </md-list-item>
+                </md-list>
+            </md-card-content>
+        </md-card>
+    </div>
 </md-content>

@@ -45,6 +45,10 @@ md-nav-bar .md-nav-bar {
     font-size: 20px;
 }
 
+.material-icons.md-30 {
+    font-size: 30px;
+}
+
 .material-icons.md-36 {
     font-size: 36px;
 }
@@ -87,30 +91,41 @@ md-nav-bar .md-nav-bar {
 }
 
 #User_Profile md-list {
-      animation-name: example;
+    animation-name: example;
     animation-duration: .5s;
 }
 
 
 #Notification md-list {
-      animation-name: example;
+    animation-name: example;
     animation-duration: .5s;
 }
 
-#Notification {
-    z-index: 61;
-    position: absolute;
-}
 
-#User_Profile {
+#User_Profile, #Notification {
     z-index: 9999;
     position: absolute;
-  
+    right: 4px;
 }
 
-#Notification::before {
+    #Notification::before {
+    }
+
+.md-list-item-text {
+    margin: 0px 10px;
+    font-size: 80%;
+    line-height: 1.6;
+    text-wrap: avoid;
 }
 
+#chart .c3-line-data1,#Traffic .c3-line-data1,#Traffic .c3-line-data2
+ {
+    stroke-width: 3px;
+}
+
+.strike{
+    text-decoration:line-through;
+}
 
 @media (max-width: 456px) {
     md-sidenav, md-sidenav-right {
@@ -280,7 +295,13 @@ md-sidenav {
 }
 
 
+.material-icons
+{
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+    transition-duration:.5s;
 
+}
 
     .send_box_content input {
         padding-left: 10px;
@@ -298,8 +319,36 @@ md-icon {
     outline: none;
 }
 
-@keyframes example   {
-   0% {
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+    transition-duration:1s;
+}
+
+
+
+@keyframes example {
+    0% {
         margin-top: -20px;
         opacity: 0;
     }

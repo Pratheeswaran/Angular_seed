@@ -1,136 +1,152 @@
 'use strict';
-
-// Declare app level module which depends on views, and components
 angular.module('myApp', [
   'ngRoute',
   'myApp.view1',
   'myApp.view2',
-  'myApp.version', 'ngMaterial', 'gridshore.c3js.chart'
-]).run(run)
-    .config(['$locationProvider', '$routeProvider', '$mdThemingProvider', function ($locationProvider, $routeProvider, $mdThemingProvider) {
-        $locationProvider.hashPrefix('!');
-        $mdThemingProvider.alwaysWatchTheme(true);
-        $mdThemingProvider.generateThemesOnDemand(true);
-        $mdThemingProvider.definePalette('amazingPaletteName', {
-            '50': 'ffebee',
-            '100': 'ffcdd2',
-            '200': 'ef9a9a',
-            '300': 'e57373',
-            '400': 'ef5350',
-            '500': 'f44336',
-            '600': 'e53935',
-            '700': 'd32f2f',
-            '800': 'c62828',
-            '900': 'b71c1c',
-            'A100': 'ff8a80',
-            'A200': 'ff5252',
-            'A400': 'ff1744',
-            'A700': 'd50000',
-            'contrastDefaultColor': 'light',    // whether, by default, text (contrast)
-            // on this palette should be dark or light
-
-            'contrastDarkColors': ['50', '100', //hues which contrast should be 'dark' by default
-             '200', '300', '400', 'A100'],
-            'contrastLightColors': undefined    // could also specify this if default was 'dark'
-        });
-
-        $mdThemingProvider.theme('primary')
-           .primaryPalette('amazingPaletteName')
-          .accentPalette('yellow');
-        $mdThemingProvider.setDefaultTheme('primary');
-        //themes are still defined in config, but the css is not generated
-        $mdThemingProvider.theme('altTheme')
-          .primaryPalette('blue')
-
-    // If you specify less than all of the keys, it will inherit from the
-    // default shades
-    .accentPalette('purple', {
-        'default': '200' // use shade 200 for default, and keep all other shades the same
-    }).dark();
-        $mdThemingProvider.theme('altTheme2')
-                 .primaryPalette('blue')
-
-           // If you specify less than all of the keys, it will inherit from the
-           // default shades
-           .accentPalette('purple', {
-               'default': '200' // use shade 200 for default, and keep all other shades the same
-           });
-
-        $routeProvider.otherwise({ redirectTo: '/view1' });
-    }])
-    .controller('AppCtrl', AppCtrl).filter('titleCase', function () {
-        return function (input) {
-            input = input || '';
-            return input.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
-        };
-    })
-.controller('LeftCtrl', function ($scope, $timeout, $mdSidenav, $log) {
-    $scope.close = function () {
-        // Component lookup should always be available since we are not using `ng-if`
-        $mdSidenav('left').close()
-          .then(function () {
-              $log.debug("close LEFT is done");
-          });
-
-    }
-})
-.controller('RightCtrl', function ($scope, $timeout, $mdSidenav, $log) {
-    $scope.close = function () {
-        // Component lookup should always be available since we are not using `ng-if`
-        $mdSidenav('right').close()
-          .then(function () {
-              $log.debug("close RIGHT is done");
-          });
+  'myApp.version',
+  'ngMaterial',
+  'gridshore.c3js.chart'])
+.run(run)
+.config(['$locationProvider', '$routeProvider', '$mdThemingProvider', config])
+.filter('titleCase', titleCase)
+.service('Load_document', ['$rootScope', function () {
+    var service = {
+        Start: Start,
+        Stop: Stop
     };
-})
- .directive('mdJustified', function () {
-     return {
-         restrict: 'A',
-         compile: function (element, attrs) {
-             var layoutDirection = 'layout-' + (attrs.mdJustified || "row");
+    return service
 
-             element.removeAttr('md-justified');
-             element.addClass(layoutDirection);
-             element.addClass("layout-align-space-between-stretch");
+    function Start($rootScope) {  $rootScope.Load_Document= true; }
+    function Stop($rootScope) { $rootScope.Load_Document = false; }
+}])
+.directive('themePreview', themePreview)
+.directive('scrollToBottom', scrollToBottom)
+.directive("outsideClick", ['$document', '$parse', '$timeout', outsideClick])
+.directive('spyStyle', ['$timeout', spyStyle])
+.controller('LeftCtrl', LeftCtrl)
+.controller('RightCtrl', RightCtrl)
+.controller('AppCtrl', AppCtrl);
 
-             return angular.noop;
-         }
-     };
- })
 
- .directive('themePreview', function () {
-     return {
-         restrict: 'E',
-         templateUrl: 'app/colorpicker.tmpl.html',
-         scope: {
-             primary: '=',
-             accent: '='
-         },
-         controller: function ($scope, $mdColors, $mdColorUtil) {
-             $scope.getColor = function (color) {
-                 return $mdColorUtil.rgbaToHex($mdColors.getThemeColor(color))
-             };
-         }
-     }
- })
-   .directive('scrollToBottom', function ($timeout, $window) {
-       return {
-           scope: {
-               scrollToBottom: "="
-           },
-           restrict: 'A',
-           link: function (scope, element, attr) {
-               scope.$watchCollection('scrollToBottom', function (newVal) {
-                   if (newVal) {
-                       $timeout(function () {
-                           element[0].scrollTop = element[0].scrollHeight + 10;
-                       }, 0);
-                   }
-               });
-           }
-       };
-   })
-.directive("outsideClick", ['$document', '$parse', '$timeout', function ($document, $parse, $timeout) {
+
+
+function config($locationProvider, $routeProvider, $mdThemingProvider) {
+    $locationProvider.hashPrefix('!');
+    $mdThemingProvider.alwaysWatchTheme(true);
+    $mdThemingProvider.generateThemesOnDemand(true);
+    $mdThemingProvider.definePalette('amazingPaletteName', {
+        '50': 'ffebee',
+        '100': 'ffcdd2',
+        '200': 'ef9a9a',
+        '300': 'e57373',
+        '400': 'ef5350',
+        '500': 'f44336',
+        '600': 'e53935',
+        '700': 'd32f2f',
+        '800': 'c62828',
+        '900': 'b71c1c',
+        'A100': 'ff8a80',
+        'A200': 'ff5252',
+        'A400': 'ff1744',
+        'A700': 'd50000',
+        'contrastDefaultColor': 'light',    // whether, by default, text (contrast)
+        // on this palette should be dark or light
+
+        'contrastDarkColors': ['50', '100', //hues which contrast should be 'dark' by default
+         '200', '300', '400', 'A100'],
+        'contrastLightColors': undefined    // could also specify this if default was 'dark'
+    });
+
+    $mdThemingProvider.theme('primary')
+       .primaryPalette('amazingPaletteName')
+      .accentPalette('yellow');
+    $mdThemingProvider.setDefaultTheme('primary');
+    //themes are still defined in config, but the css is not generated
+    $mdThemingProvider.theme('altTheme')
+      .primaryPalette('blue')
+
+// If you specify less than all of the keys, it will inherit from the
+// default shades
+.accentPalette('purple', {
+    'default': '200' // use shade 200 for default, and keep all other shades the same
+}).dark();
+    $mdThemingProvider.theme('altTheme2')
+             .primaryPalette('blue')
+
+       // If you specify less than all of the keys, it will inherit from the
+       // default shades
+       .accentPalette('purple', {
+           'default': '200' // use shade 200 for default, and keep all other shades the same
+       });
+
+    $routeProvider.otherwise({ redirectTo: '/view1' });
+}
+
+function run() {
+
+}
+
+
+
+
+function themePreview() {
+    return {
+        restrict: 'E',
+        templateUrl: 'app/colorpicker.tmpl.html',
+        scope: {
+            primary: '=',
+            accent: '='
+        },
+        controller: function ($scope, $mdColors, $mdColorUtil) {
+            $scope.getColor = function (color) {
+                return $mdColorUtil.rgbaToHex($mdColors.getThemeColor(color))
+            };
+        }
+    }
+}
+
+function scrollToBottom($timeout, $window) {
+    return {
+        scope: {
+            scrollToBottom: "="
+        },
+        restrict: 'A',
+        link: function (scope, element, attr) {
+            scope.$watchCollection('scrollToBottom', function (newVal) {
+                if (newVal) {
+                    $timeout(function () {
+                        element[0].scrollTop = element[0].scrollHeight + 10;
+                    }, 0);
+                }
+            });
+        }
+    };
+}
+
+function spyStyle($timeout) {
+    return {
+        link: function (scope, element, attrs) {
+            scope.$watch(function () {
+                return element.css(attrs['spyAttribute']);
+            }, styleChangedCallBack,
+            true);
+            function styleChangedCallBack(newValue, oldValue) {
+                if (newValue !== oldValue) {
+                    var x = document.querySelectorAll(".md-toolbar_icon");
+                    angular.forEach(x, function (item) {
+                        $timeout(function () {
+                            item.style.color = newValue;
+                        }, 0);
+                    });
+                }
+            }
+
+        }
+    };
+
+}
+
+function outsideClick($document, $parse, $timeout) {
     return {
         restrict: 'A',
         link: function ($scope, $element, $attributes) {
@@ -183,17 +199,38 @@ angular.module('myApp', [
             };
         }
     }
-}]);
-
-
-function run($rootScope, $location, $window) {
-    $rootScope.$on('$routeChangeStart', function () {
-    }
-    )
 }
 
 
-function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdColorPalette, $mdColors, $mdColorUtil, $mdMedia, $filter, $anchorScroll) {
+function titleCase() {
+    return function (input) {
+        input = input || '';
+        return input.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+    };
+}
+
+function LeftCtrl($scope, $timeout, $mdSidenav, $log) {
+    $scope.close = function () {
+        // Component lookup should always be available since we are not using `ng-if`
+        $mdSidenav('left').close()
+          .then(function () {
+              $log.debug("close LEFT is done");
+          });
+
+    }
+}
+
+function RightCtrl($scope, $timeout, $mdSidenav, $log) {
+    $scope.close = function () {
+        // Component lookup should always be available since we are not using `ng-if`
+        $mdSidenav('right').close()
+          .then(function () {
+              $log.debug("close RIGHT is done");
+          });
+    };
+}
+
+function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdColorPalette, $mdColors, $mdColorUtil, $mdMedia, $filter, $anchorScroll, Load_document, $rootScope) {
   
     $scope.Show_Notification = false;
     $scope.Show_User_Profile = false;
@@ -207,6 +244,12 @@ function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdC
         $timeout(function () { $scope.Notifications[val].Seen = true; }, 200)
 
     }
+    $scope.Events = [{ Name: "Arun opened a new issue ", Icon: "bug_report" },
+       { Name: "Visual studio licence expires in 3 days", Icon: "warning" },
+       { Name: "Ranjth Send you a voice mail for next conference", Icon: "voicemail" },
+          { Name: "Backup all code in 6 days", Icon: "backup" },
+       { Name: "Your Next flight for Canada will be on 15th August 2015.", Icon: "flight" }];
+
     $scope.Notifications = [{ Name: "Message form HR", Action: "Message", Seen: false, Icon: "textsms" },
         { Name: "Git commit", Action: "Task", Seen: false, Icon: "linear_scale" },
         { Name: "Message form TeamLead ", Action: "Message", Seen: false, Icon: "textsms" },
@@ -268,7 +311,7 @@ function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdC
             $scope.myStyle = { width: '100%' };
         }
     });
-   
+
     $scope.lock = function () {
         $timeout(function () {
             $mdSidenav('left').close()
@@ -367,4 +410,6 @@ function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdC
               });
         }
     }
+
+
 }
