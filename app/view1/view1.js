@@ -81,8 +81,19 @@ angular.module('myApp.view1', ['ngRoute', 'angular-c3-simple'])
         controller: 'View1Ctrl'
     });
 }])
+.service('Load_document', ['$rootScope', function () {
+        var service = {
+            Start: Start,
+            Stop: Stop
+        };
+        return service
+
+        function Start($rootScope) { $rootScope.Load_Document = true; }
+        function Stop($rootScope) { $rootScope.Load_Document = false; }
+    }])
 .controller('View1Ctrl', ['$scope', 'c3SimpleService', '$timeout', 'Load_document', '$rootScope', function ($scope, c3SimpleService, $timeout, Load_document, $rootScope,  $element) {
     Load_document.Start($rootScope);
+    $scope.date = new Date();
     $scope.Traffic = {
         data: {
             columns: [
@@ -129,10 +140,16 @@ angular.module('myApp.view1', ['ngRoute', 'angular-c3-simple'])
         { Name: "Company blog", Language: "Java script", Status: "Bugs posted" }
     ];
     $scope.Issues = [
-      { Name: "Browser issues", id: "5463",progress:30 },
-      { Name: "Alignment issues in chat box", id: "3245", progress: 55 },
-      { Name: "Dynamic data updating issues", id: "7653", progress: 22 },
-      { Name: "Home button", Language: "C#", id: "2123", progress: 87 }
+      { Name: "Browser issues", id: "5463",progress:30 ,color:"red"},
+      { Name: "Alignment issues in chat box", id: "3245", progress: 55, color: "green" },
+      { Name: "Dynamic data updating issues", id: "7653", progress: 22, color: "red" },
+      { Name: "Home button", Language: "C#", id: "2123", progress: 87, color: "green" }
+    ];
+    $scope.Tasks = [
+    { Name: "New reports addition", Time: "Monday", Done: false, on: "Web API", color: "green" },
+    { Name: "Issues to be solved", Time: "Friday", Done: false, on: "Web API", color: "purple" },
+    { Name: "Notifications alerts", Time: "later", Done: false, on: "Mobile API", color: "teal" },
+    { Name: "Change the Design", Time: "Today", Done: true, on: "Mobile API", color: "red" }
     ];
 
     $scope.Growth = {
@@ -288,12 +305,7 @@ angular.module('myApp.view1', ['ngRoute', 'angular-c3-simple'])
         }
     }
     $scope.Change = true;
-    $scope.Tasks = [
-        { Name: "New reports addition", Time: "Monday", Done: false, on: "Web API",color:"green" },
-        { Name: "Issues to be solved", Time: "Friday", Done: false, on: "Web API", color: "purple" },
-        { Name: "Notifications alerts", Time: "later", Done: false, on: "Mobile API", color: "teal" },
-        { Name: "Change the Design", Time: "Today", Done: true, on: "Mobile API", color: "red" }
-    ]
+
     $timeout(function () { Load_document.Stop($rootScope); }, 1500)
 
 }]);

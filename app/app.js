@@ -230,6 +230,7 @@ function RightCtrl($scope, $timeout, $mdSidenav, $log) {
     };
 }
 
+AppCtrl.$inject = ['$scope', '$location', '$timeout', '$mdSidenav', '$log', '$mdTheming', '$mdColorPalette', '$mdColors', '$mdColorUtil', '$mdMedia', '$filter', '$anchorScroll', 'Load_document', '$rootScope'];
 function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdColorPalette, $mdColors, $mdColorUtil, $mdMedia, $filter, $anchorScroll, Load_document, $rootScope) {
   
     $scope.Show_Notification = false;
@@ -254,7 +255,7 @@ function AppCtrl($scope, $location, $timeout, $mdSidenav, $log, $mdTheming, $mdC
         { Name: "Git commit", Action: "Task", Seen: false, Icon: "linear_scale" },
         { Name: "Message form TeamLead ", Action: "Message", Seen: false, Icon: "textsms" },
         { Name: "Finish the Messaging Module", Action: "Task", Seen: false, Icon: "code" }];
-    $scope.user = { Name: "popeye", Online: true, img: "app/assets/popeye1.png" };
+    $rootScope.user = { Name: "popeye", Online: true, img: "app/assets/popeye1.png" ,Phone:"000-10-00000000",Mail:"me@gmail.com"};
     $scope.people = [{ Name: "Vinoth", Online: true, img: "app/assets/vinoth.jpg" },
         { Name: "Arun", Online: false, img: "app/assets/arun.jpg", messages: [] },
         { Name: "Sampath", Online: true, img: "app/assets/sampath.jpg", messages: [] },

@@ -1,6 +1,6 @@
 <md-content id="view1" layout="column" flex layout-wrap layout-padding layout-margin>
-    <div layout="row" flex="50">
-        <md-card flex="25" md-whiteframe="13">
+    <div layout="row" flex="50" layout-xs="column">
+        <md-card flex="25" flex-xs="50" md-whiteframe="13">
             <md-card-header md-colors="::{backgroundColor: 'pink-400'}">
                 <md-card-header-text layout-align="center center">
                     <span class="md-title">Total Growth</span>
@@ -21,7 +21,7 @@
                 <div c3-simple style="height:40px" id="Growth" config="Growth"></div>
             </md-card-content>
         </md-card>
-        <md-card flex="25" md-whiteframe="13">
+        <md-card flex="25" flex-xs="50" md-whiteframe="13">
             <md-card-header md-colors="::{backgroundColor: 'orange-400'}">
                 <md-card-header-text layout-align="center center">
                     <span class="md-title">Individuals Commits</span>
@@ -40,7 +40,7 @@
 
             </md-card-content>
         </md-card>
-        <md-card flex="25" md-whiteframe="13">
+        <md-card flex="25" flex-xs="50" md-whiteframe="13">
             <md-card-header md-colors="::{backgroundColor: 'cyan-400'}">
                 <md-card-header-text layout-align="center center">
                     <span class="md-title">Active Clients</span>
@@ -60,7 +60,7 @@
                 <div c3-simple style="height:40px" id="Clients" config="Clients"></div>
             </md-card-content>
         </md-card>
-        <md-card flex="25" md-whiteframe="13">
+        <md-card flex="25" flex-xs="50" md-whiteframe="13">
             <md-card-header md-colors="::{backgroundColor: 'teal-400'}">
                 <md-card-header-text layout-align="center center">
                     <span class="md-title">
@@ -83,8 +83,8 @@
             </md-card-content>
         </md-card>
     </div>
-    <div layout="row" flex="50">
-        <md-card flex="70" md-whiteframe="15">
+    <div layout="row" flex="50" layout-xs="column">
+        <md-card flex md-whiteframe="15">
             <md-card-title md-colors="::{backgroundColor: 'blue-500'}">
                 <md-card-title-text>
                     <span class="md-headline"> Data Traffic to server</span>
@@ -95,10 +95,12 @@
                 <div style="height:200px" c3-simple id="Donut" config="Donut"></div>
             </md-card-content>
         </md-card>
-        <md-card flex="30" md-whiteframe="15">
-            <md-card-title md-colors="::{backgroundColor: 'blue-grey-500'}">
+    </div>
+    <div layout="row" layout-xs="column" flex="30">
+        <md-card flex="30" flex-xs="100" md-whiteframe="15" layout="column">
+            <md-card-title style="background-image:url(app/assets/task.jpg);background-size:cover;min-height:70px;">
                 <md-card-title-text>
-                    <span class="md-headline">My Tasks</span>
+                    <span style="color:white;font-size:20px !important" class="md-headline">My Tasks</span>
                 </md-card-title-text>
             </md-card-title>
             <md-card-content>
@@ -121,11 +123,90 @@
                 <!--<div c3-simple id="chart" config="chart"></div>-->
             </md-card-content>
         </md-card>
+        <md-card flex="40" flex-xs="100" md-whiteframe="15" layout="row">
+            <md-card-title layout-align="center center" flex="30" md-colors="::{backgroundColor: 'yellow-900'}">
+                <md-card-title-text>
+                    <span style="color:white;font-size:20px !important" class="md-headline">
+                        <h2> Flight<br /></h2>
+                        <small>{{date | date:'MMMM dd,EEE hh:mm'}}</small>
+                    </span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content flex style="background-image:url(app/assets/plane.jpg);background-size:cover" layout="column">
+                <div layout="row" layout-align="center center" style="color:black;margin-top:30px">
+                    <div>
+                        <h2>
+                            <b>IND</b>
+                        </h2>
+                    </div>
+                    <div layout="row" flex="50" layout-align="center center">
+                        <md-icon class="material-icons md-dark md-48" style="font-weight:bold !important ;margin-left: 30%;">
+                            flight
+                        </md-icon>
+                    </div>
+                    <div>
+                        <h2>
+                            <b>UK</b>
+                        </h2>
+                    </div>
+                </div>
+                <span flex></span>
+                <div layout="row" layout-align="center center" style="color:black">
+                    <div id="Flight_left">
+                        <h4>
+                            <b>
+                                Depart: 04.50
+                                Flight: TN 8055
+                                Terminal: A
+                            </b>
+                        </h4>
+                    </div>
+                    <div>
 
+                    </div>
+                    <div style="text-align:right">
+                        <h4>
+                            <b>
+                                Arrive: 08.50
+                                Flight: TN 8055
+                                Terminal: Z
+                            </b>
+                        </h4>
+                    </div>
+                </div>
+            </md-card-content>
+        </md-card>
+        <md-card flex="30" flex-xs="100" md-whiteframe="15" layout="column">
+            <md-card-title flex="40" style="background-image:url(app/assets/task.jpg);background-size:cover">
+                <md-card-title-text>
+                    <span style="color:white;font-size:20px !important" class="md-headline">Porfile</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+                <img md-whiteframe="10" class="md-profile-avatar" ng-src="{{user.img}}" alt="{{user.Name}}" />
+                <div style="margin-top:50px;font-size:20px;font-weight:bold;padding:30px" layout="column" layout-align="space-between start">
+                    <div>
+                        <md-icon class="material-icons md-dark md-24" style="font-weight:bold !important">
+                            person
+                        </md-icon>{{user.Name|titleCase}}
+                    </div>
+                    <div>
+                        <md-icon class="material-icons md-dark md-24" style="font-weight:bold !important">
+                            mail
+                        </md-icon>  {{user.Mail}}
+                    </div>
+                    <div>
+                        <md-icon class="material-icons md-dark md-24" style="font-weight:bold !important">
+                            call
+                        </md-icon> {{user.Phone}}
+                    </div>
+                </div>
+            </md-card-content>
+        </md-card>
     </div>
-    <div layout="row" flex="50">
-        <md-card flex="50" md-whiteframe="15">
-            <md-card-title>
+    <div layout="row" layout-xs="column" flex="50">
+        <md-card flex="50" flex-xs="100" md-whiteframe="15">
+            <md-card-title md-colors="::{backgroundColor: 'blue-grey-500'}">
                 <span class="md-title">
                     <md-icon class="material-icons md-dark md-48" style="font-weight:bold !important">
                         folder
@@ -155,20 +236,20 @@
                 </md-list>
             </md-card-content>
         </md-card>
-        <md-card flex="50" md-whiteframe="15">
-            <md-card-title>
+        <md-card flex="50" flex-xs="100" md-whiteframe="15">
+            <md-card-title md-colors="::{backgroundColor: 'blue-grey-500'}">
                 <span class="md-title">
                     <md-icon class="material-icons md-dark md-48" style="font-weight:bold !important">
                         bug_report
                     </md-icon>
                 </span>
                 <md-card-title-text>
-                <span class="md-headline" style="padding:10px 30px">
-                    Issues
-                <span class="md-subhead" style="padding:10px 30px">
-                Assigned to you
-                </span>
-                </span>
+                    <span class="md-headline" style="padding:10px 30px">
+                        Issues
+                        <span class="md-subhead" style="padding:10px 30px">
+                            Assigned to you
+                        </span>
+                    </span>
                 </md-card-title-text>
             </md-card-title>
             <md-card-content>
@@ -179,9 +260,10 @@
                             <p><b># {{Issue.id|titleCase}} </b>  {{Issue.Name|titleCase}}</p>
                         </div>
                         <span flex></span>
-                        <div flex="25">
+                        <div flex="20">
                             <md-progress-linear md-mode="determinate" value="{{Issue.progress}}"></md-progress-linear>
                         </div>
+                        <span class="issue_progress" md-colors="{background: '{{Issue.color}}'}">      {{Issue.progress}}%</span>
                         <md-divider></md-divider>
                     </md-list-item>
                 </md-list>

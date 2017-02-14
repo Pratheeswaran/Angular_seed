@@ -81,6 +81,14 @@ md-nav-bar .md-nav-bar {
     width: 35px;
 }
 
+.md-profile-avatar {
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    position:absolute;
+    margin-top:-50px;
+}
+
 .User_Button {
     margin: 0px 10px;
 }
@@ -125,6 +133,17 @@ md-nav-bar .md-nav-bar {
 
 .strike{
     text-decoration:line-through;
+}
+#Flight_left{
+        border-right: 2px #000 dashed;
+}
+.issue_progress{
+    font-weight: bold;
+    color: white;
+    font-size: 70%;
+    border-radius: 5px;
+    padding: 0px 5px;
+    margin: 0px 8px;
 }
 
 @media (max-width: 456px) {
